@@ -1,0 +1,72 @@
+<ion-header class="menu-top">
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title class="menu-top-title">Dashboard</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="dashboard" padding>
+  <h3 class="section-heading"><i class="icon-heading fa fa-check-circle"></i>My Fulfilled Orders</h3>
+  <hr class="line-bottom">
+  <div class="div-order">
+	<button ion-button class="btn-order" (click)="createNewOrder()"><i class="btn-icon fa fa-plus"></i>New Order</button>
+  </div>
+  <ion-card class="section">
+	  <ion-card-header class="card-heading">
+		Order No. 1234567
+	  </ion-card-header>
+
+	  <ion-card-content class="card-content">
+		<h4 class="subheading">Word Count: </h4> XXXX
+		<div class="div-view">
+			<button ion-button class="btn-view"><i class="btn-icon fa fa-eye"></i>View</button>
+		</div>
+	  </ion-card-content>
+  </ion-card>
+  <ion-card class="section">
+	  <ion-card-header class="card-heading">
+		Order No. 8901234
+	  </ion-card-header>
+
+	  <ion-card-content class="card-content">
+		<h4 class="subheading">Word Count: </h4> YYYY
+		<div class="div-view">
+			<button ion-button class="btn-view"><i class="btn-icon fa fa-eye"></i>View</button>
+		</div>
+	  </ion-card-content>
+  </ion-card>
+  
+  <h3 class="section-heading"><i class="icon-heading fa fa-check-circle"></i>Processing</h3>
+  <hr class="line-bottom">
+  <ion-card class="section">
+	  <ion-card-header class="card-heading">
+		Order No. 3435355
+	  </ion-card-header>
+
+	  <ion-card-content class="card-content">
+		<h4 class="subheading">Word Count: </h4> XXXX
+		<div class="div-view">
+			<button ion-button class="btn-view"><i class="btn-icon fa fa-eye"></i>View</button>
+		</div>
+	  </ion-card-content>
+  </ion-card>
+  <ion-card class="section">
+	  <ion-card-header class="card-heading">
+		Order No. 1234355
+	  </ion-card-header>
+
+	  <ion-card-content class="card-content">
+		<h4 class="subheading">Word Count: </h4> YYYY
+		<div class="div-view">
+			<button ion-button class="btn-view"><i class="btn-icon fa fa-eye"></i>View</button>
+		</div>
+	  </ion-card-content>
+  </ion-card>
+  
+  <ion-item *ngFor="let user of userList | async" 
+    detail-push navPush="EditAccountPage" [navParams]="{user:user}">
+      {{user.title}}
+    </ion-item>
+</ion-content>

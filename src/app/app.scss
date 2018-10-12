@@ -1,0 +1,381 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+
+
+/*hiding*/
+.hide{
+	display:none;
+}
+
+/*showing*/
+.show{
+	display:block !important;
+}
+
+/*global*/
+.clear-header .back-button {
+    color: white;
+}
+.menu-top-title.logged-in {
+    display: inline-block;
+}
+.menu-top-title.logged-in > .toolbar-title {
+    display: inline-block;
+    width: auto;
+    margin-top: 6px;
+    vertical-align: middle;
+}
+.btn-back.black {
+    color: black;
+}
+.side-title > .toolbar-title {
+    color: #da1923;
+}
+.avatar-box {
+    height: 100px;
+    width: 100px;
+    background-repeat: no-repeat;
+    background-size: 100px;
+    background-position: center;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border: 5px solid #989898;
+    border-radius: 100%;
+}
+.account-name {
+    font-size: 150%;
+    text-align: center;
+}
+.div-wc {
+    margin-bottom: 12px;
+}
+.div-add, .div-wc, .div-sign-out{
+	text-align:center;
+}
+.btn-add {
+    box-shadow: none;
+    color: #cb0000;
+	background-color: transparent;
+	border:2px solid #da1923;
+}
+.btn-add:hover {
+    box-shadow: none;
+    color: white;
+	background-color: #da1923 !important;
+	border:2px solid #da1923;
+}
+.btn-sign-out {
+    background-color: #da1923;
+    color: white;
+    box-shadow: none;
+    border: 2px solid #da1923;
+}
+.btn-sign-out:hover {
+    background-color: transparent !important;
+    color: #da1923;
+	border: 2px solid #da1923;
+}
+.top-img {
+    width: 100px;
+}
+.clear-header > ion-navbar > .toolbar-background {
+    background: transparent;
+}
+.clear-header::after {
+    background-image: none !important;
+}
+.btn-back {
+    background: transparent;
+    box-shadow: none;
+}
+.btn-back:hover {
+    background: transparent !important;
+}
+.bg-main {
+    background-image: linear-gradient(to bottom, #00529e , #1174d0, #00529e);
+}
+.txt-center {
+    text-align: center;
+}
+.content-heading{
+	color:white;
+}
+.frm-fields {
+    margin-bottom: 30px;
+}
+.bottom-links {
+    margin-top: 30px;
+}
+
+/*login page*/
+.login .content-heading {
+    font-size: 300%;
+}
+.login .scroll-content{
+	margin-top:36px !important; 
+}
+.login .input-section {
+    background: transparent;
+	padding-left: 0px;
+}
+.login .input-section ion-input[name="email"], .login .input-section ion-input[name="pwd"], .login .input-section ion-input[name="email"] input::placeholder, .login .input-section ion-input[name="pwd"] input::placeholder, .login .input-section.chk, .or {
+    color:white;
+}
+ion-checkbox[name="remember"] {
+    margin-right: 6px !important;
+}
+.chk .item-inner{
+	border-bottom:none !important;
+}
+.forgot-pwd-desc, .reg-desc {
+    color: white;
+}
+.btn-login {
+    background-color: #da1923;
+	box-shadow:none;
+}
+.btn-login:hover {
+    background-color: white !important;
+	color: #da1923;
+}
+.alternate {
+    border: 2px solid white;
+    background: white;
+    color: #da1923;
+}
+.link-btn {
+    margin-left: 5px;
+}
+#reg{
+	text-decoration:underline;
+}
+.media-logo {
+    margin-right: 12px;
+}
+
+/*create-account page*/
+.create-account .scroll-content{
+	margin-top:36px !important; 
+}
+.txt-required, .create-account .input-section ion-input[name="fname"], .create-account .input-section ion-input[name="lname"], .create-account .input-section ion-input[name="email"], .create-account .input-section ion-input[name="pwd"], .create-account .input-section ion-input[name="pwd2"], .create-account .input-section ion-input[name="fname"] input::placeholder, .create-account .input-section ion-input[name="lname"] input::placeholder, .create-account ion-input[name="email"] input::placeholder, .create-account .input-section ion-input[name="pwd"] input::placeholder, .create-account .input-section ion-input[name="pwd2"] input::placeholder, .create-account .input-section.chk, .or{
+	color:white;
+}
+.create-account .input-section {
+    background: transparent;
+	padding-left: 0px;
+}
+
+/*password-recovery page*/
+.password-recovery .scroll-content{
+	margin-top:36px !important; 
+}
+.password-recovery .input-section {
+    background: transparent;
+	padding-left: 0px;
+}
+.txt-recover, .password-recovery .input-section ion-input[name="email"], .password-recovery .input-section ion-input[name="email"] input::placeholder{
+	color:white;
+}
+
+/*reset-password page*/
+.reset-password .scroll-content{
+	margin-top:36px !important; 
+}
+.reset-password .input-section {
+    background: transparent;
+	padding-left: 0px;
+}
+.txt-recover, .reset-password .input-section ion-input[name="pwd"], .reset-password .input-section ion-input[name="pwd2"], .reset-password .input-section ion-input[name="pwd"] input::placeholder, .reset-password .input-section ion-input[name="pwd2"] input::placeholder{
+	color:white;
+}
+
+/*dashboard page*/
+.dashboard {
+    margin-top: 24px;
+}
+.dashboard .scroll-content {
+    padding: 20px !important;
+}
+.div-order {
+    text-align: right;
+    margin-bottom: 12px;
+}
+.btn-order {
+    background-color: #00529e;
+    color: white;
+    box-shadow: none;
+    border: 2px solid #00529e;
+}
+.btn-order:hover {
+    background-color: #da1923 !important;
+    color: white;
+	border: 2px solid #da1923;
+}
+.btn-icon {
+    margin-right: 3px;
+}
+.section-heading {
+    color: #00529e;
+    margin-top: 36px;
+}
+.line-bottom {
+    margin-bottom: 24px;
+    height: 2px;
+    background-image: linear-gradient(to right, #f56870, #da1923, #f56870);
+}
+.icon-heading {
+    margin-right: 6px;
+}
+.section {
+    margin: 0px;
+    width: 100%;
+    margin-bottom: 12px;
+    box-shadow: 0px 0px 6px #c5c5c5;
+}
+.card-heading {
+    font-weight: 600;
+    font-size: 140%;
+}
+.div-view {
+    text-align: right;
+}
+.btn-view {
+    background-color: #da1923;
+    color: white;
+    box-shadow: none;
+    border: 2px solid #da1923;
+}
+.btn-view:hover {
+    background-color: transparent !important;
+    color: #cb0000;
+	border: 2px solid #cb0000;
+}
+
+/*create-new-order page*/
+.lbl-input {
+    font-size: 100% !important;
+    color: #da1923 !important;
+    font-weight: 600;
+}
+.new-order .input-section {
+    margin-bottom: 12px;
+	padding-left: 0px;
+}
+#wc-label > .item-inner {
+    border-bottom: none;
+}
+.btn-new-order {
+    background-color: #da1923;
+    color: white;
+    box-shadow: none;
+    border: 2px solid #da1923;
+}
+.btn-new-order:hover {
+    background-color: transparent !important;
+    color: #cb0000;
+	border: 2px solid #da1923;
+}
+.txt-box > textarea {
+    height: 100px;
+    resize: none !important;
+}
+
+/*startup page*/
+.startup .content-heading {
+    font-size: 300%;
+}
+.startup .scroll-content{
+	margin-top:80px !important; 
+	overflow-y:hidden;
+}
+
+/*buy-words page*/
+#info-warning{
+	display:none;
+}
+
+.buy-words .input-section {
+    margin-bottom: 12px;
+	padding-left: 0px;
+}
+#tot-wc > .item-inner, #cur-wc > .item-inner, #rate-wc > .item-inner {
+    border-bottom: none;
+}
+#tot-wc, #cur-wc {
+    margin-bottom: 0px;
+}
+#cur-wc .lbl-input {
+    margin-top: 0px;
+}
+.grp-btn {
+    margin-top: 36px;
+}
+#cc {
+    background-color: transparent;
+    color: #da1923;
+    box-shadow: none;
+    border: 2px solid #da1923;
+}
+.val {
+    color: #333333;
+    font-weight: normal;
+}
+
+/*edit account page*/
+.edit-account .input-section {
+	padding-left: 0px;
+	margin-bottom:12px;
+}
+.btn-new-pic {
+    background-color: #00529e;
+    color: white;
+    box-shadow: none;
+    border: 2px solid #00529e;
+}
+.btn-new-pic:hover {
+    background-color: #da1923 !important;
+    color: white;
+	border: 2px solid #da1923;
+}
+.div-pic {
+    text-align: center;
+}
+.edit-account .avatar-box {
+    height: 140px;
+    width: 140px;
+    background-repeat: no-repeat;
+    background-size: 140px;
+    background-position: center;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border: 5px solid #da1923;
+    border-radius: 100%;
+}
+.btn-update {
+    background-color: #da1923;
+    color: white;
+    box-shadow: none;
+    border: 2px solid #da1923;
+	margin-top: 36px;
+}
+.btn-update:hover {
+    background-color: transparent !important;
+    color: #cb0000;
+	border: 2px solid #da1923;
+}

@@ -1,0 +1,38 @@
+<!--
+  Generated template for the CreateAccountPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-header class="clear-header">
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-main create-account txt-center" padding>
+    <form class="form-create">
+	  <img class="top-img" src="assets/imgs/add-user.svg" alt="user">
+	  <h1 class="content-heading">Create Account</h1>
+	  <p class="txt-required">* Required fields</p>
+	  <div class="frm-fields">
+		  <ion-item class="input-section">
+			<ion-input type="text" name="fname" [(ngModel)]="user.firstname" placeholder="First Name*"></ion-input>
+		  </ion-item>
+		  <ion-item class="input-section">
+			<ion-input type="text" name="lname" [(ngModel)]="user.lastname" placeholder="Last Name*"></ion-input>
+		  </ion-item>
+		  <ion-item class="input-section">
+			<ion-input type="email" name="email" [(ngModel)]="user.email" placeholder="Email*"></ion-input>
+		  </ion-item>
+		  <ion-item class="input-section">
+			<ion-input type="password" name="pwd" [(ngModel)]="user.password" placeholder="Password*"></ion-input>
+		  </ion-item>
+		  <ion-item class="input-section">
+			<ion-input type="password" name="pwd2" [(ngModel)]="password2" placeholder="Confirm Password*"></ion-input>
+		  </ion-item>
+	  </div>
+      <button ion-button (click)="register(user)" block class="form-btn btn-login">Create My Account</button>
+    </form>
+</ion-content>

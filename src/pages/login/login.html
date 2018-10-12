@@ -1,0 +1,35 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<ion-content class="bg-main login txt-center" padding>
+    <form class="form-login">
+	    <img class="top-img" src="assets/imgs/stopwatch.svg" alt="stopwatch">
+        <h1 class="content-heading">Quick-E</h1>
+		<div class="frm-fields">
+			<ion-item class="input-section">
+				<ion-input type="email" [(ngModel)]="user.email" name="email" placeholder="Email"></ion-input>
+			</ion-item>
+			<ion-item class="input-section">
+				<ion-input type="password" [(ngModel)]="user.password" name="pwd" placeholder="Password"></ion-input>
+			</ion-item>
+			<ion-item class="input-section chk">
+				<ion-label class="remember">Remember Me</ion-label>
+				<ion-checkbox [(ngModel)]="remember" name="remember"></ion-checkbox>
+			</ion-item>
+		</div>
+        <button ion-button type="submit" block class="form-btn btn-login" (click)="login(user)">Log in</button>
+		<div class="bottom-links">
+			<p class="forgot-pwd-desc">Forgot Password?<span class="link-btn" id="pwd-reset" (click)="recoverPassword()">Click here.</span></p>
+			<p class="reg-desc">Don't have account yet?<span class="link-btn" id="reg" (click)="register()">Sign Up</span></p>
+		</div>
+    </form>
+	<p class="or">Or</p>
+	<button ion-button type="submit" block class="form-btn btn-login alternate" (click)="signUpWithFacebook()"><i class="media-logo fa fa-facebook"></i>Sign Up with Facebook</button>
+	<button ion-button type="submit" block class="form-btn btn-login alternate" (click)="signUpWithTwitter()"><i class="media-logo fa fa-twitter"></i>Sign Up with Twitter</button>
+	<button ion-button type="submit" block class="form-btn btn-login alternate" (click)="signUpWithInstagram()"><i class="media-logo fa fa-instagram"></i>Sign Up with Facebook</button>
+	<button ion-button type="submit" block class="form-btn btn-login alternate" (click)="signUpWithGMail()"><i class="media-logo fa fa-envelope"></i>Sign Up with GMail</button>
+</ion-content>

@@ -1,0 +1,33 @@
+<ion-menu [content]="content" id="sidemenu">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title class="side-title">Quick-E</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <div class="avatar-box" style="background-image:url('/assets/imgs/default.png');">
+      </div>
+	  <p class="account-name" (click)="editAccount()">John Doe</p>
+	  <div class="div-wc">
+		My WC Balance: XXXX 
+	  </div>
+	  <div class="div-add">
+  		<button ion-button class="btn-add" (click)="buyWords()"><i class="btn-icon fa fa-plus"></i>Add WC</button>
+	  </div>
+	</ion-list>
+    <ion-list>
+      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+    </ion-list>
+	<div class="div-sign-out">
+			<button ion-button class="btn-sign-out" (click)="signOut()">Sign Out</button>
+    </div>
+  </ion-content>
+
+</ion-menu>
+
+<!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

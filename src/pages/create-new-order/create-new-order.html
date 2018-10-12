@@ -1,0 +1,32 @@
+<!--
+  Generated template for the CreateNewOrderPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Create New Order</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="new-order" padding>
+    <form (ngSubmit)="getWordCount()" class="form-create">
+	  <ion-item class="input-section">
+	    <ion-label class="lbl-input" stacked>Choose Variety</ion-label>
+        <ion-select name="variety">
+		  <ion-option value="f">American English</ion-option>
+		  <ion-option value="m">British English</ion-option>
+	    </ion-select>
+      </ion-item>
+	  <ion-item class="input-section">
+	    <ion-label class="lbl-input" stacked>Your Text</ion-label>
+        <ion-textarea class="txt-box" [(ngModel)]="text.content" id="text" name="text" placeholder="Your Text Here..." (ngModelChange)="getWordCount($event)"></ion-textarea>
+      </ion-item>
+      <ion-item class="input-section" id="wc-label">
+        <ion-label class="lbl-input" stacked>Word Count Used: <span class="val" id="wc-used"></span></ion-label>
+      </ion-item>
+      <button ion-button block class="form-btn btn-new-order">Submit</button>
+    </form>
+</ion-content>

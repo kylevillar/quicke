@@ -1,0 +1,55 @@
+<!--
+  Generated template for the BuyWordsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Buy Word Count</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="buy-words" padding>
+    <form class="form-create">
+	  <ion-item class="input-section">
+	    <ion-label class="lbl-input" stacked>Choose preference</ion-label>
+       <ion-select [(ngModel)]="select" name="select" id="select" (ngModelChange)="selected($event)">
+		  <ion-option value="pwcb">Per word count basis</ion-option>
+		  <ion-option value="ppwc">Prepacked word count</ion-option>
+	    </ion-select>
+      </ion-item>
+	  <ion-item class="input-section" id="rate-wc">
+        <ion-label class="lbl-input" stacked>Rate per word: <span class="val">$<span id="wc-rate">0.08</span></span></ion-label>
+      </ion-item>
+	  <ion-item class="input-section" id="rate-wc-pre">
+        <ion-label class="lbl-input" stacked>Minimum Amount: <span class="val">$<span id="wc-rate2">10</span></span></ion-label>
+      </ion-item>
+	  <ion-item class="input-section" id="choice1">
+		  <ion-label class="lbl-input" stacked>Amount</ion-label>
+          <ion-input type="number" [(ngModel)]="wcnumber2"  (ngModelChange)="setAmount($event)" name="number2" id="wcnumber2" placeholder="" value=""></ion-input>
+      </ion-item>
+	  <p class="info-warning" id="info-warning">You need to deposit at least $10!</p>
+	  <ion-item class="input-section" id="choice2">
+		  <ion-label class="lbl-input" stacked>Word Count</ion-label>
+          <ion-input type="number" [(ngModel)]="wcnumber"  (ngModelChange)="setWordCount($event)" name="number" id="wcnumber" placeholder="" value=""></ion-input>
+      </ion-item>
+	  <ion-item class="input-section" id="tot-wc">
+	    <ion-label class="lbl-input" stacked>Total Amount: <span class="val">$<span id="wc-total"></span></span></ion-label>
+      </ion-item>
+	  <ion-item class="input-section" id="tot-wc-2">
+	    <ion-label class="lbl-input" stacked>Word Count: <span class="val"><span id="wc-total-2"></span></span></ion-label>
+      </ion-item>
+      <ion-item class="input-section" id="cur-wc">
+        <ion-label class="lbl-input" stacked>Current word count balance: <span class="val" id="wc-now">100</span></ion-label>
+      </ion-item>
+      <ion-item class="input-section" id="all-wc">
+        <ion-label class="lbl-input" stacked>Total word count balance: <span class="val" id="wc-all"></span></ion-label>
+      </ion-item>
+	  <div class="grp-btn">
+		  <button ion-button (click)="checkoutCard()" block class="form-btn btn-new-order" id="cc">Checkout via Credit Card</button>
+		  <button ion-button (click)="checkoutPayPal()" block class="form-btn btn-new-order" id="pp">Checkout via Paypal</button>
+	  </div>
+    </form>
+</ion-content>
