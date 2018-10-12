@@ -79,8 +79,8 @@ export class BuyWordsPage {
   setAmount(newValue) {
 	var elem = document.getElementById('info-warning');
 	var v = parseFloat(newValue);
-    var words = parseFloat(v);	
-	var wc = parseInt(words/0.08);
+    var words = parseFloat(v/0.08);	
+	var wc = parseInt(words);
 	var i = document.getElementById('wc-now').innerHTML;
 	var c = parseInt(i);
 	var totWC = wc+c;
