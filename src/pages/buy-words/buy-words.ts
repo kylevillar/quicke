@@ -91,10 +91,10 @@ export class BuyWordsPage {
 	}
 	document.getElementById('wc-total-2').innerHTML = String(wc);
 	document.getElementById('wc-all').innerHTML = String(totWC);
-	if(isNaN(document.getElementById('wc-all').innerHTML)){
+	if(isNaN(parseInt(document.getElementById('wc-all').innerHTML))){
 		document.getElementById('wc-all').innerHTML = i;
 	}
-	if(isNaN(document.getElementById('wc-total-2').innerHTML)){
+	if(isNaN(parseInt(document.getElementById('wc-total-2').innerHTML))){
 		document.getElementById('wc-total-2').innerHTML = '0';
 	}
   } 
