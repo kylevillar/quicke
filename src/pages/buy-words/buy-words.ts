@@ -64,7 +64,7 @@ export class BuyWordsPage {
 	var c = parseInt(i);
 	var x = document.getElementById('wc-rate').innerHTML;
 	var r = parseFloat(x);
-	var totAmount = x*n;
+	var totAmount = r*n;
 	var totWC = n+c;
 	document.getElementById('wc-total').innerHTML = totAmount;
 	document.getElementById('wc-all').innerHTML = totWC;
