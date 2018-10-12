@@ -79,15 +79,14 @@ export class BuyWordsPage {
   setAmount(newValue) {
 	var elem = document.getElementById('info-warning');
 	var v = parseFloat(newValue); 
-	var n = v;
-	var wc = parseInt(n/0.08);
+	var wc = parseInt(v/0.08);
 	var i = document.getElementById('wc-now').innerHTML;
 	var c = parseInt(i);
 	var totWC = wc+c;
-	if(n<10){
+	if(v<10){
 		elem.classList.add('show');
 	}
-	if(n>=10){
+	if(v>=10){
 		elem.classList.remove('show');
 	}
 	document.getElementById('wc-total-2').innerHTML = String(wc);
