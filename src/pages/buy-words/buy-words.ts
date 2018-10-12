@@ -68,10 +68,10 @@ export class BuyWordsPage {
 	var totWC = n+c;
 	document.getElementById('wc-total').innerHTML = String(totAmount);
 	document.getElementById('wc-all').innerHTML = String(totWC);
-	if(isNaN(document.getElementById('wc-all').innerHTML)){
+	if(isNaN(parseInt(document.getElementById('wc-all').innerHTML))){
 		document.getElementById('wc-all').innerHTML = i;
 	}
-	if(isNaN(document.getElementById('wc-total').innerHTML)){
+	if(isNaN(parseInt(document.getElementById('wc-total').innerHTML))){
 		document.getElementById('wc-total').innerHTML = '0';
 	}
   } 
@@ -79,7 +79,7 @@ export class BuyWordsPage {
   setAmount(newValue) {
 	var elem = document.getElementById('info-warning');
 	var v = parseFloat(newValue); 
-	var wc = parseInt(v/0.08);
+	var wc = parseInt(parseFloat(v)/0.08);
 	var i = document.getElementById('wc-now').innerHTML;
 	var c = parseInt(i);
 	var totWC = wc+c;
