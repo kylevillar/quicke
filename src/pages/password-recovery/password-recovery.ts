@@ -17,8 +17,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
   templateUrl: 'password-recovery.html',
 })
 export class PasswordRecoveryPage {
-  
-  email: string;
+
+  user = {} as User;
 //var fb = firebase.database.ref();
   constructor(public navCtrl: NavController, 
 			  public navParams: NavParams,
@@ -38,7 +38,7 @@ export class PasswordRecoveryPage {
   }
   sendRecovery(){
     try{
-      if(!this.email){
+      if(!user.email){
           const alert = this.alertCtrl.create({
           title: 'Info',
           subTitle: 'Please input your email.',
@@ -48,16 +48,38 @@ export class PasswordRecoveryPage {
       }
 
       else{
-        const reset = this.afAuth.auth.sendPasswordResetEmail(this.email)
-        .then(auth => { 
-                  if(reset){ 
-                      this.navCtrl.push(ResetPage);     
-                               this.toast.create({  
-                                     'message':"Password reset email has been sent to your mail",          
-                                      duration:5000,   
-                                }).present();
-                 }else{ 
-                  console.log('Error while sending Reset link email'); 
+        const reset = this.afAuth.auth.sendPasswordResetEmail(user.email)
+        .then(user => { 
+                  if(user){ 
+                      this.afAuth.auth.onAuthStateChanged(user => {
+                        if (user && user.emailVerified) {
+                        const alert = this.alertCtrl.create({
+                          title: 'Info',
+                          subTitle: 'Login Successful!',
+                          buttons: ['OK']
+                        });
+                        alert.present();
+                        this.navCtrl.setRoot(HomePage);
+                        user.reload;
+                        user.getIdToken(true);
+                        }
+                        else{
+                          const alert = this.alertCtrl.create({
+                          title: 'Info',
+                          subTitle: 'Email must be verified',
+                          buttons: ['OK']
+                        });
+                        alert.present();
+                        }
+                      });
+                 }
+                 else{ 
+                  const alert = this.alertCtrl.create({
+                          title: 'Info',
+                          subTitle: 'Invalid email!',
+                          buttons: ['OK']
+                        });
+                        alert.present();
            } 
           },function(error){  
              console.log("Error Message:",error);
