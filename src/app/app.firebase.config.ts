@@ -1,4 +1,5 @@
 export const FIREBASE_CONFIG = {
+    production: false,
     apiKey: "AIzaSyCn2oFSHoDC_4VEbLTtOdJJ6_Ot_1jETOE",
     authDomain: "quicke-219005.firebaseapp.com",
     databaseURL: "https://quicke-219005.firebaseio.com",

@@ -27,6 +27,7 @@ import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth';
 import { FIREBASE_CONFIG } from './app.firebase.config';
 import * as firebase from 'firebase';
 import { UserService } from '../services/user.service';
+import { HttpClientModule } from '@angular/common/http';
 import { HTTP } from '@ionic-native/http';
 
 @NgModule({
@@ -48,7 +49,8 @@ import { HTTP } from '@ionic-native/http';
     IonicModule.forRoot(MyApp),
 	AngularFireModule.initializeApp(FIREBASE_CONFIG),
 	AngularFireDatabaseModule,
-	AngularFirestoreModule
+	AngularFirestoreModule,
+	HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -175,18 +175,33 @@ export class LoginPage {
 		  else{ 
 			const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
 			.then(auth => {
-				const alert = this.alertCtrl.create({
-				  title: 'Info',
-				  subTitle: 'Login Successful!',
-				  buttons: ['OK']
-				});
-				alert.present();
-				this.navCtrl.setRoot(HomePage);
+				this.afAuth.auth.onAuthStateChanged(user => {
+				    if (user && user.emailVerified) {
+					  const alert = this.alertCtrl.create({
+						  title: 'Info',
+						  subTitle: 'Login Successful!',
+						  buttons: ['OK']
+						});
+						alert.present();
+						this.navCtrl.setRoot(HomePage);
+						user.reload;
+						user.getIdToken(true);
+				    }
+				    else{
+				    	const alert = this.alertCtrl.create({
+						  title: 'Info',
+						  subTitle: 'Log in Failed! Email not verified',
+						  buttons: ['OK']
+						});
+						alert.present();
+				    }
+				  });
+				
 			})
 		    .catch(err => {
 				const alert = this.alertCtrl.create({
 				  title: 'Info',
-				  subTitle: 'Login Failed!',
+				  subTitle: 'Log in Failed! Invalid credentials',
 				  buttons: ['OK']
 				});
 				alert.present();

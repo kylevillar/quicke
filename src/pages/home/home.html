@@ -64,13 +64,14 @@
 		</div>
 	  </ion-card-content>
   </ion-card>
-  
-  <ion-list>
-  <ion-item *ngFor="let u of users">
-    <p>{{u.firstname}}</p>
-    <p>{{u.lastname}}</p>
-    <p>{{u.email}}</p>
-    <p>{{u.location}}</p>
-  </ion-item>
-</ion-list>
+
+<ion-list>
+    <ion-item *ngFor='let u of user'>
+      <p>First Name - {{ user.firstname }}</p>
+      <p>Last Name - {{ user.lastname }}</p>
+      <p>Email - {{ user.email }}</p>
+      <p>Location - {{ user.u_location }}</p> 
+    </ion-item>
+  </ion-list>
+
 </ion-content>

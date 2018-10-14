@@ -2,10 +2,13 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
 import { LoginPage } from '../../pages/login/login';
 import { AngularFireAuth } from '@angular/fire/auth'; 
+import { AngularFireDatabase, FirebaseListObservable } from '@angular/fire/database'; 
+import { AngularFirestore } from '@angular/fire/firestore';
 //import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 //import { Instagram } from '@ionic-native/instagram';
 import { User } from '../../models/user';
 import { FIREBASE_CONFIG } from '../../app/app.firebase.config';
+import * as firebase from 'firebase';
 
 
 /**
@@ -23,11 +26,15 @@ import { FIREBASE_CONFIG } from '../../app/app.firebase.config';
 export class CreateAccountPage {
   user = {} as User;
   password2:string;
+  userData: FirebaseListObservable<User[]>;
+
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,
 			  public menuCtrl: MenuController,
 			  public alertCtrl: AlertController,
+			  private db: AngularFireDatabase,
 			  private afAuth: AngularFireAuth) {
+			  this.userData = this.db.list('user');
   }
   ionViewDidEnter(){
         this.menuCtrl.swipeEnable(false,"sidemenu");
@@ -77,17 +84,26 @@ export class CreateAccountPage {
 					{
 						text:'Accept',
 						handler: () => {
-							/*this.userService.addUser(user).then(ref => {
-								this.navCtrl.setRoot(LoginPage);
-							});*/
 							const result = this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
 							.then(auth => {
+
+								this.userData.push({
+									firstname: this.user.firstname,
+									lastname: this.user.lastname,
+									email: this.user.email,
+									password: this.user.password,
+									u_location: this.user.u_location
+								});
 								  const alert = this.alertCtrl.create({
 								  title: 'Info',
-								  subTitle: 'Sign Up Successful!',
+								  subTitle: 'Sign Up Successful! We have sent the verification link to your email, please check.',
 								  buttons: ['OK']
 								});
 								alert.present();
+								let user = firebase.auth().currentUser;
+ 								user.sendEmailVerification();
+								this.navCtrl.pop();
+								this.user = {} as User;
 							})
 							.catch(err => {
 								const alert = this.alertCtrl.create({
@@ -98,6 +114,7 @@ export class CreateAccountPage {
 							  alert.present();
 							});
 
+							
 							  
 						}
 					},

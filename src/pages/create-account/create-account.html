@@ -32,6 +32,9 @@
 		  <ion-item class="input-section">
 			<ion-input type="password" name="pwd2" [(ngModel)]="password2" placeholder="Confirm Password*"></ion-input>
 		  </ion-item>
+		  <ion-item class="input-section">
+			<ion-input type="text" name="location" [(ngModel)]="user.u_location" placeholder="Location"></ion-input>
+		  </ion-item>
 	  </div>
       <button ion-button (click)="register(user)" block class="form-btn btn-login">Create My Account</button>
     </form>
