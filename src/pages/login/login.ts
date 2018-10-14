@@ -78,9 +78,25 @@ export class LoginPage {
       firebase.auth().signInWithCredential(facebookCredential)
         .then( success => { 
           console.log("Login Successful: " + JSON.stringify(success)); 
+          const alert = this.alertCtrl.create({
+				  title: 'Info',
+				  subTitle: 'Sign Up Successful!',
+				  buttons: ['OK']
+				});
+				alert.present();
+				this.navCtrl.setRoot(HomePage);
         });
 
-    }).catch((error) => { console.log(error) });
+    }).catch((error) => { 
+    	console.log(error);
+    	const alert = this.alertCtrl.create({
+				  title: 'Info',
+				  subTitle: 'Sign Up Failed!',
+				  buttons: ['OK']
+				});
+				alert.present();
+    	
+    });
   }
   signUpWithTwitter(){
 	  this.policy.displayTWPolicy();

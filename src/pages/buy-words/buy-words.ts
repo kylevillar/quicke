@@ -16,13 +16,27 @@ import { HomePage } from '../../pages/home/home';
 })
 export class BuyWordsPage {
   
-  
+  select: any;
+  mode: string[] = ['Per word count basis','Prepacked word count'];
   constructor(public navCtrl: NavController, 
 			  public navParams: NavParams,
 			  public menuCtrl: MenuController) {
+			  this.select = 'Per word count basis';
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuyWordsPage');
+    var elem = document.getElementById('rate-wc-pre');
+			var elem2 = document.getElementById('choice1');
+			var elem3 = document.getElementById('rate-wc');
+			var elem4 = document.getElementById('choice2');
+			var elem5 = document.getElementById('tot-wc');
+			var elem6 = document.getElementById('tot-wc-2');
+			elem.classList.add('hide');
+			elem2.classList.add('hide');
+			elem6.classList.add('hide');
+			elem3.classList.remove('hide');
+			elem4.classList.remove('hide');
+			elem5.classList.remove('hide');
   }
   backToDashboard(){
 	    this.navCtrl.setRoot(HomePage);
@@ -31,15 +45,14 @@ export class BuyWordsPage {
 	  this.menuCtrl.enable(true);
   }
   
-  selected(choice){
+  selected(){
 			var elem = document.getElementById('rate-wc-pre');
 			var elem2 = document.getElementById('choice1');
 			var elem3 = document.getElementById('rate-wc');
 			var elem4 = document.getElementById('choice2');
 			var elem5 = document.getElementById('tot-wc');
 			var elem6 = document.getElementById('tot-wc-2');
-		console.log(choice);
-		if(choice == "pwcb"){
+		if(this.select == "Per word count basis"){
 			elem.classList.add('hide');
 			elem2.classList.add('hide');
 			elem6.classList.add('hide');
@@ -47,7 +60,7 @@ export class BuyWordsPage {
 			elem4.classList.remove('hide');
 			elem5.classList.remove('hide');
 		}
-		else if(choice == "ppwc"){
+		else if(this.select == "Prepacked word count"){
 			elem.classList.remove('hide');
 			elem2.classList.remove('hide');
 			elem6.classList.remove('hide');

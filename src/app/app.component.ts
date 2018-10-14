@@ -24,7 +24,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = StartupPage;
+  rootPage: any = HomePage;
   loggedIn = true;
   pages: Array<{title: string, component: any}>;
 

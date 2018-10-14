@@ -13,7 +13,6 @@ import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { EditAccountPage } from '../pages/edit-account/edit-account'; 
 import { CreateNewOrderPage } from '../pages/create-new-order/create-new-order';
 import { BuyWordsPage } from '../pages/buy-words/buy-words';
-//import { PreviewPage } from '../pages/preview/preview';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Facebook } from '@ionic-native/facebook';
@@ -22,10 +21,13 @@ import { GooglePlus } from '@ionic-native/google-plus';
 import { User } from '../models/user';
 import { Policies } from '../policies/policies';
 import { AngularFireModule } from '@angular/fire'; 
-import { AngularFireDatabaseModule } from '@angular/fire/database'; 
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore'; 
 import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/auth'; 
 import { FIREBASE_CONFIG } from './app.firebase.config';
+import * as firebase from 'firebase';
 import { UserService } from '../services/user.service';
+import { HTTP } from '@ionic-native/http';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import { UserService } from '../services/user.service';
     BrowserModule,
     IonicModule.forRoot(MyApp),
 	AngularFireModule.initializeApp(FIREBASE_CONFIG),
-	AngularFireDatabaseModule
+	AngularFireDatabaseModule,
+	AngularFirestoreModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -68,6 +71,7 @@ import { UserService } from '../services/user.service';
 	AngularFireAuth,
 	GooglePlus,
 	UserService,
+	HTTP,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

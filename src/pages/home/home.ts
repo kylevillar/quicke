@@ -4,7 +4,9 @@ import { CreateNewOrderPage } from '../../pages/create-new-order/create-new-orde
 import { LoginPage } from '../../pages/login/login';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 //import { Instagram } from '@ionic-native/instagram';
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth'; 
+import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -18,13 +20,15 @@ import { UserService } from '../../services/user.service';
 })
 export class HomePage {
   
-  userList: Observable<User[]>;
+  users: Observable<User[]>;
+  usersCollectionRef: AngularFirestoreCollection<User>;
   
   constructor(public navCtrl: NavController,
 			  public menuCtrl: MenuController,
 			  private afAuth: AngularFireAuth,
 			  private toast: ToastController,
 			  private fb: Facebook,
+			  private afDB: AngularFireDatabase,
 			  private userService: UserService) {	
 
 			/*this.userList = this.userService.getUserList()
@@ -35,6 +39,7 @@ export class HomePage {
 			  key: c.payload.key, ...c.payload.val()
 			}))
 		  });*/
+		  this.userList = afDB.list('/user').valueChanges();
   }
   createNewOrder(){
 	  this.navCtrl.push(CreateNewOrderPage);
@@ -42,6 +47,11 @@ export class HomePage {
   ionViewWillEnter() { 
   	this.menuCtrl.enable(true);
   }
+
+
+
+  /*commented*/
+
   /*ionViewWillLoad() { 
   	this.afAuth.authState.subscribe(data => {
 		if(data.email && data.uid){
@@ -62,4 +72,7 @@ export class HomePage {
 	  this.userCollection = this.afs.collection('user'); //ref()
 	  this.users = this.userCollection.valueChanges()
   }*/
+
+
+
 }

@@ -15,9 +15,8 @@
     <form class="form-create">
 	  <ion-item class="input-section">
 	    <ion-label class="lbl-input" stacked>Choose preference</ion-label>
-       <ion-select [(ngModel)]="select" name="select" id="select" (ngModelChange)="selected($event)">
-		  <ion-option value="pwcb">Per word count basis</ion-option>
-		  <ion-option value="ppwc">Prepacked word count</ion-option>
+       <ion-select [(ngModel)]="select" name="select" id="select" (ngModelChange)="selected()">
+		    <ion-option *ngFor="let m of mode" value="{{m}}" [selected]="select == m">{{m}}</ion-option>
 	    </ion-select>
       </ion-item>
 	  <ion-item class="input-section" id="rate-wc">
