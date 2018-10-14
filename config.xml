@@ -95,5 +95,9 @@
     </plugin>
     <engine name="android" spec="7.1.1" />
     <engine name="browser" spec="5.0.4" />
+<<<<<<< HEAD
     <plugin name="cordova-plugin-advanced-http" spec="2.0.1" />
+=======
+    <engine name="ios" spec="4.5.5" />
+>>>>>>> 545e489fae5ba76a0b9711ee29709f9dea261f6e
 </widget>
