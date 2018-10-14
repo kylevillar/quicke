@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
 import { LoginPage } from '../../pages/login/login';
 import { AngularFireAuth } from '@angular/fire/auth'; 
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
-import { Instagram } from '@ionic-native/instagram';
+//import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+//import { Instagram } from '@ionic-native/instagram';
 import { User } from '../../models/user';
-import { Policies } from '../../policies/policies';
 import { FIREBASE_CONFIG } from '../../app/app.firebase.config';
 
 
@@ -20,7 +19,6 @@ import { FIREBASE_CONFIG } from '../../app/app.firebase.config';
 @Component({
   selector: 'page-create-account',
   templateUrl: 'create-account.html',
-  providers: [Policies]
 })
 export class CreateAccountPage {
   user = {} as User;
@@ -29,9 +27,7 @@ export class CreateAccountPage {
               public navParams: NavParams,
 			  public menuCtrl: MenuController,
 			  public alertCtrl: AlertController,
-			  public policy: Policies,
-			  private afAuth: AngularFireAuth,
-			  private fb: Facebook) {
+			  private afAuth: AngularFireAuth) {
   }
   ionViewDidEnter(){
         this.menuCtrl.swipeEnable(false,"sidemenu");

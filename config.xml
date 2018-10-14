@@ -82,18 +82,18 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^2.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
+    <plugin name="cordova-instagram-plugin" spec="0.5.7" />
+    <plugin name="cordova-plugin-firebase" spec="2.0.4" />
+    <plugin name="cordova-plugin-googleplus" spec="5.3.2">
+        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.1078026289343-hiqr2p7ojlcmtg8upnm1ppdo90i59cg4" />
+        <variable name="WEB_APPLICATION_CLIENT_ID" value="1078026289343-hiqr2p7ojlcmtg8upnm1ppdo90i59cg4.apps.googleusercontent.com" />
+    </plugin>
     <plugin name="cordova-plugin-facebook4" spec="3.0.0">
         <variable name="APP_ID" value="2064374700294873" />
         <variable name="APP_NAME" value="Quick-E Test App" />
         <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.36.0" />
     </plugin>
-    <plugin name="cordova-instagram-plugin" spec="0.5.7" />
-    <plugin name="cordova-plugin-firebase" spec="2.0.4" />
-    <plugin name="cordova-plugin-advanced-http" spec="2.0.1" />
-    <plugin name="cordova-plugin-googleplus" spec="5.3.2">
-        <variable name="REVERSED_CLIENT_ID" value="com.googleusercontent.apps.1078026289343-hiqr2p7ojlcmtg8upnm1ppdo90i59cg4" />
-        <variable name="WEB_APPLICATION_CLIENT_ID" value="1078026289343-hiqr2p7ojlcmtg8upnm1ppdo90i59cg4.apps.googleusercontent.com" />
-    </plugin>
     <engine name="android" spec="7.1.1" />
     <engine name="browser" spec="5.0.4" />
+    <plugin name="cordova-plugin-advanced-http" spec="2.0.1" />
 </widget>

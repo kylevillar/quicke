@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController} from 'ionic-angular';
 import { LoginPage } from '../../pages/login/login';
 import { HomePage } from '../../pages/home/home';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
-import { Instagram } from '@ionic-native/instagram';
+//import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+//import { Instagram } from '@ionic-native/instagram';
 
 /**
  * Generated class for the StartupPage page.
@@ -21,8 +21,7 @@ export class StartupPage {
 
   constructor(public navCtrl: NavController, 
 			  public navParams: NavParams,
-			  public menuCtrl: MenuController,
-			  private fb:Facebook) {
+			  public menuCtrl: MenuController) {
   }
 
   ionViewDidEnter(){

@@ -13,7 +13,7 @@ import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { EditAccountPage } from '../pages/edit-account/edit-account'; 
 import { CreateNewOrderPage } from '../pages/create-new-order/create-new-order';
 import { BuyWordsPage } from '../pages/buy-words/buy-words';
-import { PreviewPage } from '../pages/preview/preview';
+//import { PreviewPage } from '../pages/preview/preview';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Facebook } from '@ionic-native/facebook';
@@ -40,7 +40,6 @@ import { UserService } from '../services/user.service';
 	EditAccountPage,
 	CreateNewOrderPage,
 	BuyWordsPage,
-	PreviewPage
   ],
   imports: [
     BrowserModule,
@@ -61,7 +60,6 @@ import { UserService } from '../services/user.service';
 	EditAccountPage,
 	CreateNewOrderPage,
 	BuyWordsPage,
-	PreviewPage
   ],
   providers: [
     StatusBar,

@@ -14,8 +14,7 @@ import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { EditAccountPage } from '../pages/edit-account/edit-account'; 
 import { CreateNewOrderPage } from '../pages/create-new-order/create-new-order';
 import { BuyWordsPage } from '../pages/buy-words/buy-words';
-import { PreviewPage } from '../pages/preview/preview';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+//import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { Instagram } from '@ionic-native/instagram';
 import { AngularFireAuth } from '@angular/fire/auth'; 
 
@@ -35,8 +34,7 @@ export class MyApp {
 			  public menuCtrl: MenuController,
 			  public alertCtrl: AlertController,
 			  private instagram: Instagram,
-			  private afAuth: AngularFireAuth,
-			  private fb: Facebook) {
+			  private afAuth: AngularFireAuth) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation

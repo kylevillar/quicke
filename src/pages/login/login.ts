@@ -3,12 +3,14 @@ import { IonicPage, NavController, NavParams, MenuController, AlertController} f
 import { PasswordRecoveryPage } from '../../pages/password-recovery/password-recovery';
 import { CreateAccountPage } from '../../pages/create-account/create-account';
 import { HomePage } from '../../pages/home/home';
-import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
-import { Instagram } from '@ionic-native/instagram';
+import { Facebook } from '@ionic-native/facebook';
+//import { Instagram } from '@ionic-native/instagram';
 import { User } from '../../models/user';
+//import { AngularFire } from '@angular/fire'; 
 import { AngularFireAuth } from '@angular/fire/auth'; 
 import { Policies } from '../../policies/policies';
-import { GooglePlus } from '@ionic-native/google-plus';
+import firebase from 'firebase';
+//import { GooglePlus } from '@ionic-native/google-plus';
 import { FIREBASE_CONFIG } from '../../app/app.firebase.config';
 
 /**
@@ -33,15 +35,15 @@ export class LoginPage {
 			  public navParams: NavParams,
 			  public menuCtrl: MenuController,
 			  public policy: Policies,
-			  public gplus: GooglePlus,
-			  private instagram: Instagram,
+			  //public gplus: GooglePlus,
+			  //private instagram: Instagram,
 			  private fb: Facebook,
 			  private afAuth: AngularFireAuth
 			  ) {
   }
-  signUpWithFacebook(){
-	  this.policy.displayFBPolicy();
-	  this.fb.login(['public_profile', 'email'])
+  signUpWithFacebook(): Promise<any>{
+	  //this.policy.displayFBPolicy();
+	  /*this.fb.login(['public_profile', 'email'])
 	.then((res: FacebookLoginResponse) => {
 		this.fb.api('me?fields=id,name,email,first_name,picture.width(360).height(360).as(picture_medium)', []).then(profile => {
 			this.userData = {email: profile['email'], first_name: profile['first_name'], picture: profile['picture_medium']['data']['url'], username: profile['name']};
@@ -67,7 +69,18 @@ export class LoginPage {
 				console.log(res.status);
 			}
 		})
-  });
+  });*/
+	return this.fb.login(['email'])
+	.then( response => {
+      const facebookCredential = firebase.auth.FacebookAuthProvider
+        .credential(response.authResponse.accessToken);
+
+      firebase.auth().signInWithCredential(facebookCredential)
+        .then( success => { 
+          console.log("Login Successful: " + JSON.stringify(success)); 
+        });
+
+    }).catch((error) => { console.log(error) });
   }
   signUpWithTwitter(){
 	  this.policy.displayTWPolicy();

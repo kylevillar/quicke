@@ -3,10 +3,9 @@ import { NavController, MenuController} from 'ionic-angular';
 import { CreateNewOrderPage } from '../../pages/create-new-order/create-new-order';
 import { LoginPage } from '../../pages/login/login';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
-import { Instagram } from '@ionic-native/instagram';
+//import { Instagram } from '@ionic-native/instagram';
 import { AngularFireAuth } from '@angular/fire/auth'; 
 import { ToastController } from 'ionic-angular';
-//import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { User } from '../../models/user';
@@ -23,7 +22,6 @@ export class HomePage {
   
   constructor(public navCtrl: NavController,
 			  public menuCtrl: MenuController,
-			  private instagram: Instagram,
 			  private afAuth: AngularFireAuth,
 			  private toast: ToastController,
 			  private fb: Facebook,
