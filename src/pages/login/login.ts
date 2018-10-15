@@ -31,6 +31,7 @@ export class LoginPage {
   loggedIn = false;
   userData = null;
   user = {} as User;
+  userProfile: any = null;
   g_user: Observable<firebase.User>;
   constructor(public navCtrl: NavController, 
 			  private alertCtrl: AlertController,
@@ -43,7 +44,14 @@ export class LoginPage {
 			  private afAuth: AngularFireAuth
 			  ) {
 			this.g_user = this.afAuth.authState;
-  }
+			firebase.auth().onAuthStateChanged( user => {
+						if (user){
+						  this.userProfile = user;
+						} else { 
+						  this.userProfile = null; 
+						}
+					  });
+			  }
   signUpWithFacebook(): Promise<any>{
 	  //this.policy.displayFBPolicy();
 	  /*this.fb.login(['public_profile', 'email'])
@@ -107,7 +115,7 @@ export class LoginPage {
   signUpWithInstagram(){
 	  this.policy.displayIGPolicy();
   }
-  async signUpWithGMail(): Promise<void>{
+  signUpWithGMail(): void{
 	  const alert = this.alertCtrl.create({
 				  title: 'GMail Privacy Policy',
 				  subTitle: 'Please read and agree with the rules and regulations.',
@@ -125,19 +133,20 @@ export class LoginPage {
 					{
 						text:'Accept',
 						handler: () => {
-								  this.gplus.login({
+							    
+								  /*this.gplus.login({
 									  'webClientId':'1078026289343-hiqr2p7ojlcmtg8upnm1ppdo90i59cg4.apps.googleusercontent.com',
 									  'offline':true
 								  }).then(res => {
 									  this.afAuth.auth.signInWithCredential(this.afAuth.auth.GoogleAuthProvider.credential(res.idToken))
-									  .then(suc =>{
+									  .then(success =>{
 										  const alert = this.alertCtrl.create({
 											  title: 'Info',
 											  subTitle: 'Google Sign In Successful!',
 											  buttons: ['OK']
 											});
 											alert.present();
-									  }).catch(ns=>{
+									  }).catch(err =>{
 										  const alert = this.alertCtrl.create({
 											  title: 'Info',
 											  subTitle: 'Google Sign In Failed!',
@@ -145,15 +154,15 @@ export class LoginPage {
 											});
 											alert.present();
 									  })
-								  })
+								  });*/
 								  /*try {
-									const gplusUser = await this.gplus.login({
+									const gplusUser = this.gplus.login({
 									  'webClientId': '1078026289343-hiqr2p7ojlcmtg8upnm1ppdo90i59cg4.apps.googleusercontent.com',
 									  'offline': true,
 									  'scopes': 'profile email'
 									})
 
-									return await this.afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken))
+									return this.afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken))
 
 								  } catch(err) {
 									console.log(err)
