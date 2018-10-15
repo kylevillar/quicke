@@ -1,21 +1,20 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController} from 'ionic-angular';
-import { HomePage } from '../../pages/home/home';
-
+import { LoginPage } from '../../pages/login/login';
+import { AngularFireAuth } from '@angular/fire/auth'; 
+import * as firebase from 'firebase';
 /**
  * Generated class for the BuyWordsPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
 @IonicPage()
 @Component({
   selector: 'page-buy-words',
   templateUrl: 'buy-words.html',
 })
 export class BuyWordsPage {
-  
   select: any;
   mode: string[] = ['Per word count basis','Prepacked word count'];
   constructor(public navCtrl: NavController, 
@@ -25,7 +24,12 @@ export class BuyWordsPage {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad BuyWordsPage');
-    var elem = document.getElementById('rate-wc-pre');
+	const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+	  if (!user) {
+			this.navCtrl.setRoot(LoginPage);
+			unsubscribe();
+	  } else {	  
+			var elem = document.getElementById('rate-wc-pre');
 			var elem2 = document.getElementById('choice1');
 			var elem3 = document.getElementById('rate-wc');
 			var elem4 = document.getElementById('choice2');
@@ -37,14 +41,13 @@ export class BuyWordsPage {
 			elem3.classList.remove('hide');
 			elem4.classList.remove('hide');
 			elem5.classList.remove('hide');
-  }
-  backToDashboard(){
-	    this.navCtrl.setRoot(HomePage);
+			unsubscribe();
+	  }
+	});
   }
   ionViewWillEnter(){
 	  this.menuCtrl.enable(true);
   }
-  
   selected(){
 			var elem = document.getElementById('rate-wc-pre');
 			var elem2 = document.getElementById('choice1');
@@ -52,24 +55,23 @@ export class BuyWordsPage {
 			var elem4 = document.getElementById('choice2');
 			var elem5 = document.getElementById('tot-wc');
 			var elem6 = document.getElementById('tot-wc-2');
-		if(this.select == "Per word count basis"){
-			elem.classList.add('hide');
-			elem2.classList.add('hide');
-			elem6.classList.add('hide');
-			elem3.classList.remove('hide');
-			elem4.classList.remove('hide');
-			elem5.classList.remove('hide');
-		}
-		else if(this.select == "Prepacked word count"){
-			elem.classList.remove('hide');
-			elem2.classList.remove('hide');
-			elem6.classList.remove('hide');
-			elem3.classList.add('hide');
-			elem4.classList.add('hide');
-			elem5.classList.add('hide');
-		}
+			if(this.select == "Per word count basis"){
+				elem.classList.add('hide');
+				elem2.classList.add('hide');
+				elem6.classList.add('hide');
+				elem3.classList.remove('hide');
+				elem4.classList.remove('hide');
+				elem5.classList.remove('hide');
+			}
+			else if(this.select == "Prepacked word count"){
+				elem.classList.remove('hide');
+				elem2.classList.remove('hide');
+				elem6.classList.remove('hide');
+				elem3.classList.add('hide');
+				elem4.classList.add('hide');
+				elem5.classList.add('hide');
+			}
   }
-  
   setWordCount(newValue) {
 	var v = parseInt(newValue); 
 	var n = v;
@@ -88,7 +90,6 @@ export class BuyWordsPage {
 		document.getElementById('wc-total').innerHTML = '0';
 	}
   } 
-  
   setAmount(newValue) {
 	var elem = document.getElementById('info-warning');
 	var v = parseFloat(newValue);
@@ -110,6 +111,5 @@ export class BuyWordsPage {
 	if(isNaN(parseInt(document.getElementById('wc-total-2').innerHTML))){
 		document.getElementById('wc-total-2').innerHTML = '0';
 	}
-  } 
-
+  }
 }

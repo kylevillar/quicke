@@ -40,7 +40,6 @@ export class StartupPage {
   }
   ngOnInit(){
 				setTimeout(() => {
-					//this.navCtrl.setRoot(LoginPage);
 					const unsubscribe = firebase.auth().onAuthStateChanged(user => {
 					  if (!user) {
 						this.navCtrl.setRoot(LoginPage);

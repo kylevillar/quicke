@@ -17,17 +17,15 @@ import { BuyWordsPage } from '../pages/buy-words/buy-words';
 //import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { Instagram } from '@ionic-native/instagram';
 import { AngularFireAuth } from '@angular/fire/auth'; 
-
+import * as firebase from 'firebase';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-
   rootPage: any = StartupPage;
   loggedIn = true;
   pages: Array<{title: string, component: any}>;
-
   constructor(public platform: Platform, 
 			  public statusBar: StatusBar, 
 			  public splashScreen: SplashScreen,
@@ -36,14 +34,12 @@ export class MyApp {
 			  private instagram: Instagram,
 			  private afAuth: AngularFireAuth) {
     this.initializeApp();
-
     // used for an example of ngFor and navigation
     this.pages = [
       /*{ title: 'Home', component: HomePage },
       { title: 'List', component: ListPage }*/
 	  { title: 'Dashboard', component: HomePage }
     ];
-
   }
   initializeApp() {
     this.platform.ready().then(() => {
@@ -53,7 +49,6 @@ export class MyApp {
       this.splashScreen.hide();
     });
   }
-
   editAccount(){
 	  this.nav.push(EditAccountPage);
 	  this.menuCtrl.enable(false);
@@ -78,15 +73,13 @@ export class MyApp {
 			  handler: () => {
 				const result2 = this.afAuth.auth.signOut().then(function() {
 				  // Sign-out successful.
-				  /*const alert = this.alertCtrl.create({
+				  const alert = this.alertCtrl.create({
 					  title: 'Info',
 					  subTitle: 'Log Out Successful!',
 					  buttons: ['OK']
 					});
-					alert.present();*/
-					console.log(result2);
-					
-					
+					alert.present();
+					console.log(result2);	
 				}, function(error) {
 				  // An error happened.
 				  console.log(error);
@@ -99,7 +92,6 @@ export class MyApp {
 		});
 		confirm.present();
   }
-  
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
