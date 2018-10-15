@@ -31,9 +31,9 @@ export class EditAccountPage {
 			var query = firebase.database().ref('user').orderByChild('email').equalTo(user.email);
 			query.on('child_added', function(snap) {
 			  var person = snap.val();
-			  document.getElementById("fname").value = person.fullname;
+			  /*document.getElementById("fname").value = person.fullname;
 			  document.getElementById("email").value = person.email;
-			  document.getElementById("location").value = person.u_location;
+			  document.getElementById("location").value = person.u_location;*/
 			});
 			unsubscribe();
 	  }
