@@ -76,14 +76,23 @@ export class MyApp {
 			{
 			  text: 'Yes',
 			  handler: () => {
-				const result = this.afAuth.auth.signOut().then(function() {
+				const result2 = this.afAuth.auth.signOut().then(function() {
 				  // Sign-out successful.
+				  /*const alert = this.alertCtrl.create({
+					  title: 'Info',
+					  subTitle: 'Log Out Successful!',
+					  buttons: ['OK']
+					});
+					alert.present();*/
+					console.log(result2);
+					
+					
 				}, function(error) {
 				  // An error happened.
-				  console.log("error!");
+				  console.log(error);
 				});	
-				this.nav.push(StartupPage);
-				  this.menuCtrl.enable(false);				
+				this.menuCtrl.enable(false);
+				this.nav.setRoot(StartupPage);
 			  }
 			}
 		  ]

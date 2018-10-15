@@ -4,6 +4,8 @@ import { LoginPage } from '../../pages/login/login';
 import { HomePage } from '../../pages/home/home';
 //import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 //import { Instagram } from '@ionic-native/instagram';
+import { AngularFireAuth } from '@angular/fire/auth'; 
+import * as firebase from 'firebase';
 
 /**
  * Generated class for the StartupPage page.
@@ -18,7 +20,7 @@ import { HomePage } from '../../pages/home/home';
   templateUrl: 'startup.html',
 })
 export class StartupPage {
-
+  rootPage: any;
   constructor(public navCtrl: NavController, 
 			  public navParams: NavParams,
 			  public menuCtrl: MenuController) {
@@ -31,14 +33,27 @@ export class StartupPage {
   ionViewWillLeave(){
         this.menuCtrl.swipeEnable(true,"sidemenu");
   }
+  
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad StartupPage');
   }
   ngOnInit(){
 				setTimeout(() => {
-					this.navCtrl.push(LoginPage);
+					//this.navCtrl.setRoot(LoginPage);
+					const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+					  if (!user) {
+						this.navCtrl.setRoot(LoginPage);
+						unsubscribe();
+						
+					  } else {
+						this.navCtrl.setRoot(HomePage);
+						unsubscribe();
+					  }
+					});
 				}, 5000);
 
   }
+
 
 }

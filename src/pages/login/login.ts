@@ -203,7 +203,7 @@ export class LoginPage {
 				    if (user && user.emailVerified) {
 					  const alert = this.alertCtrl.create({
 						  title: 'Info',
-						  subTitle: 'Login Successful!',
+						  subTitle: 'Log in Successful!',
 						  buttons: ['OK']
 						});
 						alert.present();
@@ -237,6 +237,7 @@ export class LoginPage {
 	  }
   }
   
+
   recoverPassword(){
         this.navCtrl.push(PasswordRecoveryPage);
   }
