@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, AlertController} from 'ionic-angular';
+import { LoginPage } from '../../pages/login/login';
 import { FIREBASE_CONFIG } from '../../app/app.firebase.config';
 import firebase from 'firebase';
 import { AngularFireAuth } from '@angular/fire/auth'; 
@@ -18,11 +19,12 @@ import { AngularFireAuth } from '@angular/fire/auth';
 })
 export class PasswordRecoveryPage {
 
-  user = {} as User;
+  email:string;
 //var fb = firebase.database.ref();
   constructor(public navCtrl: NavController, 
 			  public navParams: NavParams,
 			  public menuCtrl: MenuController,
+			  private alertCtrl: AlertController,
         private afAuth:AngularFireAuth ) {
   }
   ionViewDidEnter(){
@@ -38,7 +40,7 @@ export class PasswordRecoveryPage {
   }
   sendRecovery(){
     try{
-      if(!user.email){
+      if(!this.email){
           const alert = this.alertCtrl.create({
           title: 'Info',
           subTitle: 'Please input your email.',
@@ -48,42 +50,26 @@ export class PasswordRecoveryPage {
       }
 
       else{
-        const reset = this.afAuth.auth.sendPasswordResetEmail(user.email)
-        .then(user => { 
-                  if(user){ 
-                      this.afAuth.auth.onAuthStateChanged(user => {
-                        if (user && user.emailVerified) {
-                        const alert = this.alertCtrl.create({
-                          title: 'Info',
-                          subTitle: 'Login Successful!',
-                          buttons: ['OK']
-                        });
-                        alert.present();
-                        this.navCtrl.setRoot(HomePage);
-                        user.reload;
-                        user.getIdToken(true);
-                        }
-                        else{
-                          const alert = this.alertCtrl.create({
-                          title: 'Info',
-                          subTitle: 'Email must be verified',
-                          buttons: ['OK']
-                        });
-                        alert.present();
-                        }
-                      });
-                 }
-                 else{ 
-                  const alert = this.alertCtrl.create({
-                          title: 'Info',
-                          subTitle: 'Invalid email!',
-                          buttons: ['OK']
-                        });
-                        alert.present();
-           } 
-          },function(error){  
-             console.log("Error Message:",error);
-           });
+        const reset = this.afAuth.auth.sendPasswordResetEmail(this.email)
+        .then(() => {
+			console.log("email sent");
+			const alert = this.alertCtrl.create({
+			  title: 'Info',
+			  subTitle: 'We have sent the reset link, please check your email.',
+			  buttons: ['OK']
+			});
+			alert.present();
+			this.navCtrl.setRoot(LoginPage);
+		})
+      .catch((error) => { 
+				console.log(error);
+	  			const alert = this.alertCtrl.create({
+			  title: 'Info',
+			  subTitle: 'Invalid email!',
+			  buttons: ['OK']
+			});
+			alert.present();
+	  })
 
       }
     }

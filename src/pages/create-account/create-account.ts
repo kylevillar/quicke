@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
 import { LoginPage } from '../../pages/login/login';
 import { AngularFireAuth } from '@angular/fire/auth'; 
-import { AngularFireDatabase, FirebaseListObservable } from '@angular/fire/database'; 
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database'; 
 import { AngularFirestore } from '@angular/fire/firestore';
 //import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 //import { Instagram } from '@ionic-native/instagram';
@@ -26,7 +26,7 @@ import * as firebase from 'firebase';
 export class CreateAccountPage {
   user = {} as User;
   password2:string;
-  userData: FirebaseListObservable<User[]>;
+  userData: AngularFireList<User>;
 
   constructor(public navCtrl: NavController, 
               public navParams: NavParams,

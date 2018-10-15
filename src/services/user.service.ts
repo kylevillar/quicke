@@ -17,11 +17,11 @@ export class UserService {
         return this.userListRef.push(user);
     }
  
-    updateUser(user: User) {
+    /*updateUser(user: User) {
         return this.userListRef.update(user.key, user);
     }
  
     removeUser(user: User) {
         return this.userListRef.remove(user.key);
-    }
+    }*/
 }
