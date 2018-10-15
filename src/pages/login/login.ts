@@ -10,8 +10,9 @@ import { User } from '../../models/user';
 import { AngularFireAuth } from '@angular/fire/auth'; 
 import { Policies } from '../../policies/policies';
 import firebase from 'firebase';
-//import { GooglePlus } from '@ionic-native/google-plus';
+import { GooglePlus } from '@ionic-native/google-plus';
 import { FIREBASE_CONFIG } from '../../app/app.firebase.config';
+import { Observable } from 'rxjs/Observable';
 
 /**
  * Generated class for the LoginPage page.
@@ -30,16 +31,18 @@ export class LoginPage {
   loggedIn = false;
   userData = null;
   user = {} as User;
+  g_user: Observable<firebase.User>;
   constructor(public navCtrl: NavController, 
 			  private alertCtrl: AlertController,
 			  public navParams: NavParams,
 			  public menuCtrl: MenuController,
 			  public policy: Policies,
-			  //public gplus: GooglePlus,
+			  public gplus: GooglePlus,
 			  //private instagram: Instagram,
 			  private fb: Facebook,
 			  private afAuth: AngularFireAuth
 			  ) {
+			this.g_user = this.afAuth.authState;
   }
   signUpWithFacebook(): Promise<any>{
 	  //this.policy.displayFBPolicy();
@@ -104,7 +107,7 @@ export class LoginPage {
   signUpWithInstagram(){
 	  this.policy.displayIGPolicy();
   }
-  signUpWithGMail(){
+  async signUpWithGMail(): Promise<void>{
 	  const alert = this.alertCtrl.create({
 				  title: 'GMail Privacy Policy',
 				  subTitle: 'Please read and agree with the rules and regulations.',
@@ -122,7 +125,7 @@ export class LoginPage {
 					{
 						text:'Accept',
 						handler: () => {
-								  /*this.gplus.login({
+								  this.gplus.login({
 									  'webClientId':'1078026289343-hiqr2p7ojlcmtg8upnm1ppdo90i59cg4.apps.googleusercontent.com',
 									  'offline':true
 								  }).then(res => {
@@ -142,7 +145,19 @@ export class LoginPage {
 											});
 											alert.present();
 									  })
-								  })*/
+								  })
+								  /*try {
+									const gplusUser = await this.gplus.login({
+									  'webClientId': '1078026289343-hiqr2p7ojlcmtg8upnm1ppdo90i59cg4.apps.googleusercontent.com',
+									  'offline': true,
+									  'scopes': 'profile email'
+									})
+
+									return await this.afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken))
+
+								  } catch(err) {
+									console.log(err)
+								  }*/
 						}
 					},
 				  ]
