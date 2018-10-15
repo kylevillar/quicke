@@ -25,6 +25,7 @@ import * as firebase from 'firebase';
 })
 export class CreateAccountPage {
   user = {} as User;
+  password:string;
   password2:string;
   userData: AngularFireList<User>;
 
@@ -50,7 +51,7 @@ export class CreateAccountPage {
   }
   async register(user: User){
 	  try{
-		  if(!user.firstname || !user.lastname || !user.email || !user.password || !this.password2){
+		  if(!user.fullname || !user.email || !this.password || !this.password2){
 				const alert = this.alertCtrl.create({
 				  title: 'Info',
 				  subTitle: 'Please fill out the required fields!',
@@ -58,7 +59,7 @@ export class CreateAccountPage {
 				});
 				alert.present();
 		  }
-		  else if(this.password2 != user.password){
+		  else if(this.password2 != this.password){
 				const alert = this.alertCtrl.create({
 				  title: 'Info',
 				  subTitle: 'Passwords do not match!',
@@ -84,14 +85,12 @@ export class CreateAccountPage {
 					{
 						text:'Accept',
 						handler: () => {
-							const result = this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
+							const result = this.afAuth.auth.createUserWithEmailAndPassword(user.email, this.password)
 							.then(auth => {
 
 								this.userData.push({
-									firstname: this.user.firstname,
-									lastname: this.user.lastname,
+									fullname: this.user.fullname,
 									email: this.user.email,
-									password: this.user.password,
 									u_location: this.user.u_location
 								});
 								  const alert = this.alertCtrl.create({
