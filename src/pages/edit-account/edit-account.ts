@@ -17,7 +17,6 @@ import * as firebase from 'firebase';
   templateUrl: 'edit-account.html',
 })
 export class EditAccountPage {
-
   constructor(public navCtrl: NavController, 
 			  public navParams: NavParams,
 			  public menuCtrl: MenuController) {
@@ -28,11 +27,23 @@ export class EditAccountPage {
 	  if (!user) {
 			this.navCtrl.setRoot(LoginPage);
 			unsubscribe();
-	  } else {	  
+	  } else {	 
+			var query = firebase.database().ref('user').orderByChild('email').equalTo(user.email);
+			query.on('child_added', function(snap) {
+			  var person = snap.val();
+			  document.getElementById("fname").value = person.fullname;
+			  document.getElementById("email").value = person.email;
+			  document.getElementById("location").value = person.u_location;
+			});
 			unsubscribe();
 	  }
 	});
   }
+  
+  updateUser(){
+	  
+  }
+  
   ionViewWillEnter(){
 	  this.menuCtrl.enable(true);
   }

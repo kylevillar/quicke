@@ -85,16 +85,15 @@ export class MyApp {
 			  handler: () => {
 				const result2 = this.afAuth.auth.signOut().then(function() {
 				  // Sign-out successful.
-				  const alert = this.alertCtrl.create({
+				  /*const alert = this.alertCtrl.create({
 					  title: 'Info',
 					  subTitle: 'Log Out Successful!',
 					  buttons: ['OK']
 					});
-					alert.present();
-					console.log(result2);	
+					alert.present();*/
 				}, function(error) {
 				  // An error happened.
-				  console.log(error);
+				  //console.log(error);
 				});	
 				this.menuCtrl.enable(false);
 				this.nav.setRoot(StartupPage);

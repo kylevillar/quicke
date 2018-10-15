@@ -213,7 +213,7 @@ export class LoginPage {
 						user.reload;
 						user.getIdToken(true);
 				    }
-				    else{
+				    else if(!user.emailVerified){
 				    	const alert = this.alertCtrl.create({
 						  title: 'Info',
 						  subTitle: 'Log in Failed! Email not verified',
