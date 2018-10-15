@@ -4,21 +4,18 @@ import { LoginPage } from '../../pages/login/login';
 import { FIREBASE_CONFIG } from '../../app/app.firebase.config';
 import firebase from 'firebase';
 import { AngularFireAuth } from '@angular/fire/auth'; 
-
 /**
  * Generated class for the PasswordRecoveryPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
 @IonicPage()
 @Component({
   selector: 'page-password-recovery',
   templateUrl: 'password-recovery.html',
 })
 export class PasswordRecoveryPage {
-
   email:string;
 //var fb = firebase.database.ref();
   constructor(public navCtrl: NavController, 
@@ -30,11 +27,9 @@ export class PasswordRecoveryPage {
   ionViewDidEnter(){
         this.menuCtrl.swipeEnable(false,"sidemenu");
   }
-
   ionViewWillLeave(){
         this.menuCtrl.swipeEnable(true,"sidemenu");
   }
-
   ionViewDidLoad() {
     console.log('ionViewDidLoad PasswordRecoveryPage');
   }
@@ -48,7 +43,6 @@ export class PasswordRecoveryPage {
         });
         alert.present();
       }
-
       else{
         const reset = this.afAuth.auth.sendPasswordResetEmail(this.email)
         .then(() => {
@@ -70,7 +64,6 @@ export class PasswordRecoveryPage {
 			});
 			alert.present();
 	  })
-
       }
     }
     catch (e) {

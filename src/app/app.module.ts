@@ -5,14 +5,14 @@ import { IonicPageModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
-import { StartupPage } from '../pages/startup/startup';
-import { LoginPage } from '../pages/login/login';
-import { CreateAccountPage } from '../pages/create-account/create-account';
-import { PasswordRecoveryPage } from '../pages/password-recovery/password-recovery'; 
-import { ResetPasswordPage } from '../pages/reset-password/reset-password'; 
-import { EditAccountPage } from '../pages/edit-account/edit-account'; 
-import { CreateNewOrderPage } from '../pages/create-new-order/create-new-order';
-import { BuyWordsPage } from '../pages/buy-words/buy-words';
+import { BuyWordsPageModule } from '../pages/buy-words/buy-words.module';
+import { CreateAccountPageModule } from '../pages/create-account/create-account.module';
+import { EditAccountPageModule } from '../pages/edit-account/edit-account.module';
+import { LoginPageModule } from '../pages/login/login.module';
+import { PasswordRecoveryPageModule } from '../pages/password-recovery/password-recovery.module';
+import { ResetPasswordPageModule } from '../pages/reset-password/reset-password.module';
+import { StartupPageModule } from '../pages/startup/startup.module';
+import { CreateNewOrderPageModule } from '../pages/create-new-order/create-new-order.module';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Facebook } from '@ionic-native/facebook';
@@ -34,15 +34,7 @@ import { HTTP } from '@ionic-native/http';
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
-	StartupPage,
-	LoginPage,
-	CreateAccountPage,
-	PasswordRecoveryPage,
-	ResetPasswordPage,
-	EditAccountPage,
-	CreateNewOrderPage,
-	BuyWordsPage,
+    ListPage
   ],
   imports: [
     BrowserModule,
@@ -50,21 +42,22 @@ import { HTTP } from '@ionic-native/http';
 	AngularFireModule.initializeApp(FIREBASE_CONFIG),
 	AngularFireDatabaseModule,
 	AngularFirestoreModule,
-	HttpClientModule
+	HttpClientModule,
+	BuyWordsPageModule,
+	CreateAccountPageModule,
+	EditAccountPageModule,
+	LoginPageModule,
+	PasswordRecoveryPageModule,
+	ResetPasswordPageModule,
+	StartupPageModule,
+	CreateNewOrderPageModule
+	
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
-	StartupPage,
-	LoginPage,
-	CreateAccountPage,
-	PasswordRecoveryPage,
-	ResetPasswordPage,
-	EditAccountPage,
-	CreateNewOrderPage,
-	BuyWordsPage,
+    ListPage
   ],
   providers: [
     StatusBar,
