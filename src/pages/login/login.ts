@@ -32,6 +32,8 @@ export class LoginPage {
   userData = null;
   user = {} as User;
   userProfile: any = null;
+  email: string;
+  password: string;
   g_user: Observable<firebase.User>;
   constructor(public navCtrl: NavController, 
 			  private alertCtrl: AlertController,
@@ -186,9 +188,9 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
   
-  async login(user: User){
+  login(user: User){
 	  try{
-		  if(!user.email || !user.password){
+		  if(!this.email || !this.password){
 			  	const alert = this.alertCtrl.create({
 				  title: 'Info',
 				  subTitle: 'Please fill out the fields.',
@@ -197,7 +199,7 @@ export class LoginPage {
 				alert.present();
 		  }
 		  else{ 
-			const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
+			const result = this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password)
 			.then(auth => {
 				this.afAuth.auth.onAuthStateChanged(user => {
 				    if (user && user.emailVerified) {

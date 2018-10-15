@@ -48,6 +48,18 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+	const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+	  if (!user) {
+			unsubscribe();
+	  } else {	
+			var query = firebase.database().ref('user').orderByChild('email').equalTo(user.email);
+			query.on('child_added', function(snap) {
+			  var person = snap.val();
+			  document.getElementById('account-name').innerHTML = person.fullname;
+			});
+			unsubscribe();
+	  }
+	});
   }
   editAccount(){
 	  this.nav.push(EditAccountPage);
