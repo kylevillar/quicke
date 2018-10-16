@@ -56,7 +56,7 @@ export class LoginPage {
 					  });
 			this.userData = this.db.list('user');
 			  }
-  async signUpWithFacebook(): void{
+  async signUpWithFacebook(): Promise<void>{
 	const alert = this.alertCtrl.create({
 				  title: 'Facebook Privacy Policy',
 				  subTitle: 'Please read and agree with the rules and regulations.',
@@ -105,7 +105,7 @@ export class LoginPage {
 				});
 		alert.present();
   }
- async  signUpWithTwitter(): void{
+ async  signUpWithTwitter(): Promise<void>{
 	  const alert = this.alertCtrl.create({
 				  title: 'Twitter Privacy Policy',
 				  subTitle: 'Please read and agree with the rules and regulations.',
@@ -146,7 +146,7 @@ export class LoginPage {
 				});
 		alert.present();
   }
-  async signUpWithInstagram(): void{
+  async signUpWithInstagram(): Promise<void>{
 	  const alert = this.alertCtrl.create({
 				  title: 'Instagram Privacy Policy',
 				  subTitle: 'Please read and agree with the rules and regulations.',
