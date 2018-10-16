@@ -8,6 +8,7 @@ import { Facebook } from '@ionic-native/facebook';
 import { User } from '../../models/user';
 //import { AngularFire } from '@angular/fire'; 
 import { AngularFireAuth } from '@angular/fire/auth'; 
+import { AngularFireDatabase, AngularFireList } from '@angular/fire/database'; 
 import { Policies } from '../../policies/policies';
 import firebase from 'firebase';
 import { GooglePlus } from '@ionic-native/google-plus';
@@ -28,12 +29,11 @@ import { Observable } from 'rxjs/Observable';
   providers: [Policies]
 })
 export class LoginPage {
-  loggedIn = false;
-  userData = null;
   user = {} as User;
   userProfile: any = null;
   email: string;
   password: string;
+  userData: AngularFireList<User>;
   g_user: Observable<firebase.User>;
   constructor(public navCtrl: NavController, 
 			  private alertCtrl: AlertController,
@@ -41,6 +41,7 @@ export class LoginPage {
 			  public menuCtrl: MenuController,
 			  public policy: Policies,
 			  public gplus: GooglePlus,
+			  private db: AngularFireDatabase,
 			  //private instagram: Instagram,
 			  private fb: Facebook,
 			  private afAuth: AngularFireAuth
@@ -53,63 +54,9 @@ export class LoginPage {
 						  this.userProfile = null; 
 						}
 					  });
+			this.userData = this.db.list('user');
 			  }
-  signUpWithFacebook(): void{
-	  //this.policy.displayFBPolicy();
-	  /*this.fb.login(['public_profile', 'email'])
-	.then((res: FacebookLoginResponse) => {
-		this.fb.api('me?fields=id,name,email,first_name,picture.width(360).height(360).as(picture_medium)', []).then(profile => {
-			this.userData = {email: profile['email'], first_name: profile['first_name'], picture: profile['picture_medium']['data']['url'], username: profile['name']};
-			this.loggedIn = true;
-			if(res.status === "connected"){
-				const alert = this.alertCtrl.create({
-				  title: 'Info',
-				  subTitle: 'Sign Up Successful!',
-				  buttons: ['OK']
-				});
-				alert.present();
-				console.log(res.status);
-				this.navCtrl.setRoot(HomePage);
-				
-			}
-			else{
-				const alert = this.alertCtrl.create({
-				  title: 'Info',
-				  subTitle: 'Sign Up Failed!',
-				  buttons: ['OK']
-				});
-				alert.present();
-				console.log(res.status);
-			}
-		})
-  });*/
-	/*return this.fb.login(['email'])
-	.then( response => {
-      const facebookCredential = firebase.auth.FacebookAuthProvider
-        .credential(response.authResponse.accessToken);
-
-      firebase.auth().signInWithCredential(facebookCredential)
-        .then( success => { 
-          console.log("Login Successful: " + JSON.stringify(success)); 
-          const alert = this.alertCtrl.create({
-				  title: 'Info',
-				  subTitle: 'Sign Up Successful!',
-				  buttons: ['OK']
-				});
-				alert.present();
-				this.navCtrl.setRoot(HomePage);
-        });
-
-    }).catch((error) => { 
-    	console.log(error);
-    	const alert = this.alertCtrl.create({
-				  title: 'Info',
-				  subTitle: 'Sign Up Failed!',
-				  buttons: ['OK']
-				});
-				alert.present();
-    	
-    });*/
+  async signUpWithFacebook(): void{
 	const alert = this.alertCtrl.create({
 				  title: 'Facebook Privacy Policy',
 				  subTitle: 'Please read and agree with the rules and regulations.',
@@ -128,9 +75,29 @@ export class LoginPage {
 					{
 						text:'Accept',
 						handler: () => {
-							this.afAuth.auth.signInWithPopup(
-							  new firebase.auth.FacebookAuthProvider()
-							);
+								try {
+								  const provider = new firebase.auth.FacebookAuthProvider();
+								  const credential = this.afAuth.auth
+									.signInWithPopup(provider)
+									.then(data => {
+										console.log(data);
+									  /*this.userData.push({
+											fullname: this.user.fullname,
+											email: this.user.email,
+											u_location: this.user.u_location
+									  });*/
+									  const alert = this.alertCtrl.create({
+										  title: 'Info',
+										  subTitle: 'Sign In Successful!',
+										  buttons: ['OK']
+										});
+										alert.present();
+									  this.navCtrl.setRoot(HomePage);
+									});
+								} 
+								catch (err) {
+								  console.log(err);
+								}
 							
 						}
 					},
@@ -138,7 +105,7 @@ export class LoginPage {
 				});
 		alert.present();
   }
-  signUpWithTwitter(): void{
+ async  signUpWithTwitter(): void{
 	  const alert = this.alertCtrl.create({
 				  title: 'Twitter Privacy Policy',
 				  subTitle: 'Please read and agree with the rules and regulations.',
@@ -179,7 +146,7 @@ export class LoginPage {
 				});
 		alert.present();
   }
-  signUpWithInstagram(): void{
+  async signUpWithInstagram(): void{
 	  const alert = this.alertCtrl.create({
 				  title: 'Instagram Privacy Policy',
 				  subTitle: 'Please read and agree with the rules and regulations.',
@@ -244,33 +211,6 @@ export class LoginPage {
 				]
 		});
 		alert.present();
-								/*var provider = new firebase.auth.GoogleAuthProvider();
-								firebase.auth().signInWithPopup(provider).then(function(result) {
-								  // This gives you a Google Access Token. You can use it to access the Google API.
-								  var token = result.credential.accessToken;
-								  // The signed-in user info.
-								  var user = result.user;
-								  console.log(result);
-								  if(result){
-								  const alert = this.alertCtrl.create({
-									  title: 'Info',
-									  subTitle: 'Successfully signed in!',
-									  buttons: ['OK']
-									});
-									alert.present();
-									this.navCtrl.setRoot(HomePage);
-								  }
-								  // ...
-								}).catch(function(error) {
-								  // Handle Errors here.
-								  var errorCode = error.code;
-								  var errorMessage = error.message;
-								  // The email of the user's account used.
-								  var email = error.email;
-								  // The firebase.auth.AuthCredential type that was used.
-								  var credential = error.credential;
-								  // ...
-								});*/  
   }
   
   ionViewDidEnter(){
@@ -285,7 +225,7 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
   
-  login(user: User){
+  async login(user: User){
 	  try{
 		  if(!this.email || !this.password){
 			  	const alert = this.alertCtrl.create({
