@@ -128,9 +128,10 @@ export class LoginPage {
 					{
 						text:'Accept',
 						handler: () => {
-							return this.afAuth.auth.signInWithPopup(
+							this.afAuth.auth.signInWithPopup(
 							  new firebase.auth.FacebookAuthProvider()
 							);
+							
 						}
 					},
 				  ]
@@ -155,9 +156,23 @@ export class LoginPage {
 					{
 						text:'Accept',
 						handler: () => {
-							return this.afAuth.auth.signInWithPopup(
-							  new firebase.auth.TwitterAuthProvider()
-							);
+								try {
+								  const provider = new firebase.auth.TwitterAuthProvider();
+								  const credential = this.afAuth.auth
+									.signInWithPopup(provider)
+									.then(data => {
+									  const alert = this.alertCtrl.create({
+										  title: 'Info',
+										  subTitle: 'Sign In Successful!',
+										  buttons: ['OK']
+										});
+										alert.present();
+									  this.navCtrl.setRoot(HomePage);
+									});
+								} 
+								catch (err) {
+								  console.log(err);
+								}
 						}
 					},
 				  ]
@@ -182,14 +197,14 @@ export class LoginPage {
 					{
 						text:'Accept',
 						handler: () => {
-						
+								
 						}
 					},
 				  ]
 				});
 		alert.present();
   }
-  signUpWithGMail(): void{
+  async signUpWithGMail(): Promise<void>{
 	  const alert = this.alertCtrl.create({
 				  title: 'GMail Privacy Policy',
 				  subTitle: 'Please read and agree with the rules and regulations.',
@@ -207,48 +222,55 @@ export class LoginPage {
 					{
 						text:'Accept',
 						handler: () => {
-							    
-								  /*this.gplus.login({
-									  'webClientId':'1078026289343-hiqr2p7ojlcmtg8upnm1ppdo90i59cg4.apps.googleusercontent.com',
-									  'offline':true
-								  }).then(res => {
-									  this.afAuth.auth.signInWithCredential(this.afAuth.auth.GoogleAuthProvider.credential(res.idToken))
-									  .then(success =>{
-										  const alert = this.alertCtrl.create({
-											  title: 'Info',
-											  subTitle: 'Google Sign In Successful!',
-											  buttons: ['OK']
-											});
-											alert.present();
-									  }).catch(err =>{
-										  const alert = this.alertCtrl.create({
-											  title: 'Info',
-											  subTitle: 'Google Sign In Failed!',
-											  buttons: ['OK']
-											});
-											alert.present();
-									  })
-								  });*/
-								  /*try {
-									const gplusUser = this.gplus.login({
-									  'webClientId': '1078026289343-hiqr2p7ojlcmtg8upnm1ppdo90i59cg4.apps.googleusercontent.com',
-									  'offline': true,
-									  'scopes': 'profile email'
-									})
-
-									return this.afAuth.auth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(gplusUser.idToken))
-
-								  } catch(err) {
-									console.log(err)
-								  }*/
-								  return this.afAuth.auth.signInWithPopup(
-									  new firebase.auth.GoogleAuthProvider()
-									);
+								try {
+								  const provider = new firebase.auth.GoogleAuthProvider();
+								  const credential = this.afAuth.auth
+									.signInWithPopup(provider)
+									.then(data => {
+									  const alert = this.alertCtrl.create({
+										  title: 'Info',
+										  subTitle: 'Sign In Successful!',
+										  buttons: ['OK']
+										});
+										alert.present();
+									  this.navCtrl.setRoot(HomePage);
+									});
+								} 
+								catch (err) {
+								  console.log(err);
+								} 
 						}
-					},
-				  ]
-				});
+					}
+				]
+		});
 		alert.present();
+								/*var provider = new firebase.auth.GoogleAuthProvider();
+								firebase.auth().signInWithPopup(provider).then(function(result) {
+								  // This gives you a Google Access Token. You can use it to access the Google API.
+								  var token = result.credential.accessToken;
+								  // The signed-in user info.
+								  var user = result.user;
+								  console.log(result);
+								  if(result){
+								  const alert = this.alertCtrl.create({
+									  title: 'Info',
+									  subTitle: 'Successfully signed in!',
+									  buttons: ['OK']
+									});
+									alert.present();
+									this.navCtrl.setRoot(HomePage);
+								  }
+								  // ...
+								}).catch(function(error) {
+								  // Handle Errors here.
+								  var errorCode = error.code;
+								  var errorMessage = error.message;
+								  // The email of the user's account used.
+								  var email = error.email;
+								  // The firebase.auth.AuthCredential type that was used.
+								  var credential = error.credential;
+								  // ...
+								});*/  
   }
   
   ionViewDidEnter(){
