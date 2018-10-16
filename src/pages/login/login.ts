@@ -194,6 +194,12 @@ export class LoginPage {
 								  const credential = this.afAuth.auth
 									.signInWithPopup(provider)
 									.then(data => {
+									  console.log(data);
+									  this.userData.push({
+											fullname: data.user.displayName,
+											email: data.user.email,
+											u_location: ""
+									  });
 									  const alert = this.alertCtrl.create({
 										  title: 'Info',
 										  subTitle: 'Sign In Successful!',
