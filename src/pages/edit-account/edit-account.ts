@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, AlertController} from 'ionic-angular';
 import { LoginPage } from '../../pages/login/login';
 import { AngularFireAuth } from '@angular/fire/auth'; 
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database'; 
@@ -30,6 +30,7 @@ export class EditAccountPage {
 			  public navParams: NavParams,
 			  public menuCtrl: MenuController,
 			  private db: AngularFireDatabase,
+			  public alertCtrl: AlertController,
 			  private afAuth: AngularFireAuth) {
 			this.userData = this.db.list('user');
   }
