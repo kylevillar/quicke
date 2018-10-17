@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, MenuController, AlertController } 
 import { LoginPage } from '../../pages/login/login';
 import { AngularFireAuth } from '@angular/fire/auth'; 
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database'; 
-import { AngularFirestore } from '@angular/fire/firestore';
 //import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 //import { Instagram } from '@ionic-native/instagram';
 import { User } from '../../models/user';
@@ -27,6 +26,7 @@ export class CreateAccountPage {
   user = {} as User;
   password:string;
   password2:string;
+  u_location: string;
   userData: AngularFireList<User>;
 
   constructor(public navCtrl: NavController, 
