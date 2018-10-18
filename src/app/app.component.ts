@@ -98,9 +98,12 @@ export class MyApp {
 					  buttons: ['OK']
 					});
 					alert.present();*/
+					const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+						user.reload;
+					});
 				}, function(error) {
 				  // An error happened.
-				  //console.log(error);
+				  console.log(error);
 				});	
 				this.menuCtrl.enable(false);
 				this.nav.setRoot(StartupPage);

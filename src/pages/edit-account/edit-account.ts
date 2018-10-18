@@ -37,22 +37,40 @@ export class EditAccountPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditAccountPage');
 	const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+		var ion_name = document.getElementById('fname').children;
+		ion_name[0].setAttribute('value',user.displayName);
+		var ion_email = document.getElementById('email').children;
+		ion_email[0].setAttribute('value',user.email);
+		var ion_location = document.getElementById('fname').children;
 	  if (!user) {
 			this.navCtrl.setRoot(LoginPage);
 			unsubscribe();
 	  } else {	
-			let fname = user.displayName;
-			let email = user.email; 
 			var query = firebase.database().ref('user').orderByChild('email').equalTo(user.email);
+			var pic = document.getElementById('avatar-box');
+			pic.setAttribute("style","background-image: url("+ user.photoURL +") !important;");
 			query.on('child_added', function(snap) {
-			  var person = snap.val();
-			  let u_location = person.u_location;
+				var person = snap.val();
+				ion_location[0].setAttribute('value',person.u_location);
+			unsubscribe();
 			});
 			unsubscribe();
 	  }
 	});
-  }
-
+	}
+	
+	setName(){
+		//this.userInfo.fullname = val;
+		this.userInfo.fullname = "Test name";
+	}
+	setEmail(){
+		//this.userInfo.email = val;
+		this.userInfo.email = "someone@example.com";
+	}
+	setLocation(){
+		//this.userInfo.u_location = val;
+		this.userInfo.u_location = "manila";
+	}
   
   async updateUser(userInfo: User){
 		  if(!this.password2 || !this.password){
