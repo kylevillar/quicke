@@ -22,15 +22,15 @@
 	  <hr class="line-bottom">
   	  <ion-item class="input-section">
 		  <ion-label class="lbl-input" stacked>Full Name</ion-label>
-          <ion-input type="text" name="fname" id="fname" [(ngModel)]="userInfo.fullname" placeholder="Full Name*" value="${fname}"></ion-input>
+          <ion-input type="text" name="fname" id="fname" [(ngModel)]="userInfo.fullname" placeholder="Full Name*" value="${fname}" (ngModelChange) = "setFullName($event)"></ion-input>
       </ion-item>
       <ion-item class="input-section">
 		<ion-label class="lbl-input" stacked>Email Address</ion-label>
-        <ion-input type="email" disabled="true" name="email" id="email" [(ngModel)]="user.email" placeholder="Email*" value="${email}"></ion-input>
+        <ion-input type="email" disabled="true" name="email" id="email" [(ngModel)]="user.email" placeholder="Email*" value="${email}" (ngModelChange) = "setEmail($event)"></ion-input>
       </ion-item>
       <ion-item class="input-section">
 		<ion-label class="lbl-input" stacked>Location</ion-label>
-        <ion-input type="text" name="location" id="location" [(ngModel)]="userInfo.u_location" placeholder="" value="${user.u_location}"></ion-input>
+        <ion-input type="text" name="location" id="location" [(ngModel)]="userInfo.u_location" placeholder="" value="${user.u_location}" (ngModelChange) = "setLocation($event)"></ion-input>
       </ion-item>
       <h3 class="section-heading"><i class="fa fa-lock icon-heading"></i>Update Password</h3>
 	  <hr class="line-bottom">

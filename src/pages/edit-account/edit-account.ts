@@ -40,12 +40,12 @@ export class EditAccountPage {
 	  if (!user) {
 			this.navCtrl.setRoot(LoginPage);
 			unsubscribe();
-	  } else {	 
+	  } else {	
+			let fname = user.displayName;
+			let email = user.email; 
 			var query = firebase.database().ref('user').orderByChild('email').equalTo(user.email);
 			query.on('child_added', function(snap) {
 			  var person = snap.val();
-			  let fname = person.fullname;
-			  let email = person.email;
 			  let u_location = person.u_location;
 			});
 			unsubscribe();

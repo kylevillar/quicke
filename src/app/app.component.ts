@@ -52,11 +52,18 @@ export class MyApp {
 	  if (!user) {
 			unsubscribe();
 	  } else {	
-			var query = firebase.database().ref('user').orderByChild('email').equalTo(user.email);
+			/*var query = firebase.database().ref('user').orderByChild('email').equalTo(user.email);
 			query.on('child_added', function(snap) {
-			  var person = snap.val();
-			  document.getElementById('account-name').innerHTML = person.fullname;
-			});
+				var person = snap.val();
+				console.log(user.displayName);
+				document.getElementById('account-name').innerHTML = person.fullname;
+				var pic = document.getElementById('avatar-box');
+				pic.setAttribute("style","background-image: url("+ user.photoURL +") !important;");
+			});*/
+			user.reload;
+			document.getElementById('account-name').innerHTML = user.displayName;
+			var pic = document.getElementById('avatar-box');
+			pic.setAttribute("style","background-image: url("+ user.photoURL +") !important;");
 			unsubscribe();
 	  }
 	});
