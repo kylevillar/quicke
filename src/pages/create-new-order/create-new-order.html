@@ -12,13 +12,12 @@
 
 
 <ion-content class="new-order" padding>
-    <form (ngSubmit)="getWordCount()" class="form-create">
+    <form class="form-create">
 	  <ion-item class="input-section">
 	    <ion-label class="lbl-input" stacked>Choose Variety</ion-label>
-        <ion-select name="variety">
-		  <ion-option value="f">American English</ion-option>
-		  <ion-option value="m">British English</ion-option>
-	    </ion-select>
+        <ion-select [(ngModel)]="select" name="variety">
+          <ion-option *ngFor="let v of variety" value="{{v}}" [selected]="select == v">{{m}}</ion-option>
+	      </ion-select>
       </ion-item>
 	  <ion-item class="input-section">
 	    <ion-label class="lbl-input" stacked>Your Text</ion-label>
@@ -27,6 +26,6 @@
       <ion-item class="input-section" id="wc-label">
         <ion-label class="lbl-input" stacked>Word Count Used: <span class="val" id="wc-used"></span></ion-label>
       </ion-item>
-      <button ion-button block class="form-btn btn-new-order">Submit</button>
+      <button ion-button block class="form-btn btn-new-order" (click)="sendOrder()">Submit</button>
     </form>
 </ion-content>

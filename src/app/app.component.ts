@@ -98,9 +98,6 @@ export class MyApp {
 					  buttons: ['OK']
 					});
 					alert.present();*/
-					const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-						user.reload;
-					});
 				}, function(error) {
 				  // An error happened.
 				  console.log(error);

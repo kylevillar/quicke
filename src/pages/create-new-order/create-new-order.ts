@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, AlertController} from 'ionic-angular';
 import { LoginPage } from '../../pages/login/login';
 import { AngularFireAuth } from '@angular/fire/auth'; 
 import * as firebase from 'firebase';
+import { HomePage } from '../home/home';
 /**
  * Generated class for the CreateNewOrderPage page.
  *
@@ -15,9 +16,12 @@ import * as firebase from 'firebase';
   templateUrl: 'create-new-order.html',
 })
 export class CreateNewOrderPage {
-  public text:any={content: ''};
+	public text:any={content: ''};
+	select: any;
+  variety: string[] = ['American English','British English'];
   constructor(public navCtrl: NavController, 
-			  public navParams: NavParams,
+				public navParams: NavParams,
+				private alertCtrl: AlertController,
 			  public menuCtrl: MenuController) {
   }
   ionViewDidLoad() {
@@ -42,5 +46,33 @@ export class CreateNewOrderPage {
 	else{
 		document.getElementById('wc-used').innerHTML = s.split(' ').length;
 	}
-  } 
+	}
+	sendOrder(){
+		const confirm = this.alertCtrl.create({
+      title: 'Submit Order',
+      message: 'Do you want to process your order now?',
+      buttons: [
+			{
+			  text: 'No',
+			  handler: () => {
+
+			  }
+			},
+			{
+			  text: 'Yes',
+			  handler: () => {
+					const alert = this.alertCtrl.create({
+							title: 'Info',
+							subTitle: 'Order has been submitted for review. We will notify you once our editors receive your order.',
+							buttons: ['OK']
+						});
+						alert.present();
+						this.navCtrl.setRoot(HomePage);
+					}
+			}
+		  ]
+		});
+		confirm.present();
+	}
+	
 }
