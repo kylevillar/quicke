@@ -16,7 +16,7 @@
 	  <ion-item class="input-section">
 	    <ion-label class="lbl-input" stacked>Choose Variety</ion-label>
         <ion-select [(ngModel)]="select" name="variety">
-          <ion-option *ngFor="let v of variety" value="{{v}}" [selected]="select == v">{{m}}</ion-option>
+          <ion-option *ngFor="let v of variety" value="{{v}}" [selected]="select == v">{{v}}</ion-option>
 	      </ion-select>
       </ion-item>
 	  <ion-item class="input-section">

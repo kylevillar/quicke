@@ -58,20 +58,7 @@ export class EditAccountPage {
 	  }
 	});
 	}
-	
-	setName(){
-		//this.userInfo.fullname = val;
-		this.userInfo.fullname = "Test name";
-	}
-	setEmail(){
-		//this.userInfo.email = val;
-		this.userInfo.email = "someone@example.com";
-	}
-	setLocation(){
-		//this.userInfo.u_location = val;
-		this.userInfo.u_location = "manila";
-	}
-  
+
   async updateUser(userInfo: User){
 		  if(!this.password2 || !this.password){
 			  if(!userInfo.fullname || !userInfo.email || !userInfo.u_location){
@@ -93,6 +80,7 @@ export class EditAccountPage {
 		  }
 		  else{
 			  const unsubscribe = firebase.auth().onAuthStateChanged(user => { 
+				user.reload;
 					var query = firebase.database().ref('user').orderByChild('email').equalTo(user.email);
 					query.on('child_added', function(snap) {
 					  var person = snap.val();

@@ -50,6 +50,7 @@ export class MyApp {
     });
 	const unsubscribe = firebase.auth().onAuthStateChanged(user => {
 	  if (!user) {
+			user.reload;
 			unsubscribe();
 	  } else {	
 			/*var query = firebase.database().ref('user').orderByChild('email').equalTo(user.email);
@@ -98,6 +99,7 @@ export class MyApp {
 					  buttons: ['OK']
 					});
 					alert.present();*/
+					console.log(result2);
 				}, function(error) {
 				  // An error happened.
 				  console.log(error);
