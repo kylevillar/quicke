@@ -13,6 +13,7 @@ import { PasswordRecoveryPageModule } from '../pages/password-recovery/password-
 import { ResetPasswordPageModule } from '../pages/reset-password/reset-password.module';
 import { StartupPageModule } from '../pages/startup/startup.module';
 import { CreateNewOrderPageModule } from '../pages/create-new-order/create-new-order.module';
+import { PreviewPageModule } from '../pages/preview/preview.module';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Facebook } from '@ionic-native/facebook';
@@ -50,8 +51,8 @@ import { HTTP } from '@ionic-native/http';
 	PasswordRecoveryPageModule,
 	ResetPasswordPageModule,
 	StartupPageModule,
-	CreateNewOrderPageModule
-	
+	CreateNewOrderPageModule,
+	PreviewPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -14,6 +14,7 @@ import 'rxjs/add/operator/map';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
 import { HTTP } from '@ionic-native/http';
+import { PreviewPage } from '../preview/preview';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -44,5 +45,8 @@ export class HomePage {
 			unsubscribe();
 	  }
 	});
-  }
+	}
+	view(){
+		this.navCtrl.push(PreviewPage);
+	}
 }
