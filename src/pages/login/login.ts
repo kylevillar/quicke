@@ -76,6 +76,7 @@ export class LoginPage {
 						text:'Accept',
 						handler: () => {
 								try {
+									console.log(firebase.auth.FacebookAuthProvider.FACEBOOK_SIGN_IN_METHOD);
 								  const provider = new firebase.auth.FacebookAuthProvider();
 								  const credential = firebase.auth()
 									.signInWithPopup(provider)
