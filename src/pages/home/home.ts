@@ -7,7 +7,6 @@ import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase'; 
-//import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
