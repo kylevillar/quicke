@@ -92,6 +92,8 @@ export class BuyWordsPage {
   } 
   setAmount(newValue) {
 	var elem = document.getElementById('info-warning');
+	var elem2 = document.getElementById('cc');
+	var elem3 = document.getElementById('pp');
 	var v = parseFloat(newValue);
     var wc = v/0.08;	
 	var i = document.getElementById('wc-now').innerHTML;
@@ -99,9 +101,13 @@ export class BuyWordsPage {
 	var totWC = wc+c;
 	if(v<10){
 		elem.classList.add('show');
+		elem2.setAttribute('disabled','true');
+		elem3.setAttribute('disabled','true');
 	}
 	if(v>=10){
 		elem.classList.remove('show');
+		elem2.removeAttribute('disabled');
+		elem3.removeAttribute('disabled');
 	}
 	document.getElementById('wc-total-2').innerHTML = String(wc);
 	document.getElementById('wc-all').innerHTML = String(totWC);
