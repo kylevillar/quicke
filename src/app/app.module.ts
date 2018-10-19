@@ -30,6 +30,8 @@ import * as firebase from 'firebase';
 import { UserService } from '../services/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP } from '@ionic-native/http';
+import { PusherServiceProvider } from '../providers/pusher-service/pusher-service';
+import { ChatServiceProvider } from '../providers/chat-service/chat-service';
 
 @NgModule({
   declarations: [
@@ -69,7 +71,9 @@ import { HTTP } from '@ionic-native/http';
 	UserService,
 	HTTP,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    PusherServiceProvider,
+    ChatServiceProvider
   ]
 })
 export class AppModule {}
