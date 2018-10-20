@@ -5,6 +5,7 @@
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
     <access origin="*" />
+    <meta content="default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; connect-src *; img-src 'self' data:; style-src 'self'; font-src 'self';" http-equiv="Content-Security-Policy" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
