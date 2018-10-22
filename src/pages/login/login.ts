@@ -79,17 +79,21 @@ export class LoginPage {
 								  const provider = new firebase.auth.FacebookAuthProvider();
 								  const credential = firebase.auth()
 									.signInWithPopup(provider)
-									.then(function(data){
-											// This gives you a Facebook Access Token. You can use it to access the Facebook API.
-											//var token = data.credential.accessToken;
-											// The signed-in user info.
-											//var user = data.user;
+									.then(data => {
+										var fname = data.additionalUserInfo.profile;
+										console.log(data.additionalUserInfo.profile);
+										/*this.userData.push({
+											fullname: data.user.displayName,
+											email: data.user.email,
+											u_location: ""
+										});*/
 											const alert = this.alertCtrl.create({
 												title: 'Info',
 												subTitle: 'Sign In Successful!',
 												buttons: ['OK']
 											});
 											alert.present();
+											this.navCtrl.setRoot(HomePage);
 									}).catch(function(error) {
 										console.log('error!');
 										// ...
