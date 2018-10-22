@@ -80,13 +80,13 @@ export class LoginPage {
 								  const credential = firebase.auth()
 									.signInWithPopup(provider)
 									.then(data => {
-										var fname = data.additionalUserInfo.profile;
-										console.log(data.additionalUserInfo.profile);
-										/*this.userData.push({
-											fullname: data.user.displayName,
-											email: data.user.email,
-											u_location: ""
-										});*/
+										if(data.additionalUserInfo.isNewUser){
+											this.userData.push({
+												fullname: data.user.displayName,
+												email: data.user.email,
+												u_location: ""
+											});
+										}
 											const alert = this.alertCtrl.create({
 												title: 'Info',
 												subTitle: 'Sign In Successful!',
@@ -199,11 +199,13 @@ export class LoginPage {
 								  const credential = this.afAuth.auth
 									.signInWithPopup(provider)
 									.then(data => {
-												this.userData.push({
-													fullname: data.user.displayName,
-													email: data.user.email,
-													u_location: ""
-												});
+												if(data.additionalUserInfo.isNewUser){
+													this.userData.push({
+														fullname: data.user.displayName,
+														email: data.user.email,
+														u_location: ""
+													});
+											}
 									  const alert = this.alertCtrl.create({
 										  title: 'Info',
 										  subTitle: 'Sign In Successful!',
