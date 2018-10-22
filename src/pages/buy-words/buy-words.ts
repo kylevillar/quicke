@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController} from 'ionic-angular';
 import { LoginPage } from '../../pages/login/login';
-import { AngularFireAuth } from '@angular/fire/auth'; 
 import * as firebase from 'firebase';
 /**
  * Generated class for the BuyWordsPage page.

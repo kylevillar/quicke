@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, AlertController } from 'ionic-angular';
-import { LoginPage } from '../../pages/login/login';
-import { AngularFireAuth } from '@angular/fire/auth'; 
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database'; 
-//import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 //import { Instagram } from '@ionic-native/instagram';
 import { User } from '../../models/user';
-import { FIREBASE_CONFIG } from '../../app/app.firebase.config';
 import * as firebase from 'firebase';
 
 
@@ -33,8 +29,7 @@ export class CreateAccountPage {
               public navParams: NavParams,
 			  public menuCtrl: MenuController,
 			  public alertCtrl: AlertController,
-			  private db: AngularFireDatabase,
-			  private afAuth: AngularFireAuth) {
+			  private db: AngularFireDatabase) {
 			  this.userData = this.db.list('user');
   }
   ionViewDidEnter(){
@@ -85,7 +80,7 @@ export class CreateAccountPage {
 					{
 						text:'Accept',
 						handler: () => {
-							const result = this.afAuth.auth.createUserWithEmailAndPassword(user.email, this.password)
+							firebase.auth().createUserWithEmailAndPassword(user.email, this.password)
 							.then(auth => {
 
 								this.userData.push({

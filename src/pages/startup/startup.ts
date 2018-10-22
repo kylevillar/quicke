@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController} from 'ionic-angular';
 import { LoginPage } from '../../pages/login/login';
 import { HomePage } from '../../pages/home/home';
-//import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 //import { Instagram } from '@ionic-native/instagram';
-import { AngularFireAuth } from '@angular/fire/auth'; 
 import * as firebase from 'firebase';
 
 /**

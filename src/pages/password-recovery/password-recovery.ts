@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, AlertController} from 'ionic-angular';
 import { LoginPage } from '../../pages/login/login';
-import { FIREBASE_CONFIG } from '../../app/app.firebase.config';
 import firebase from 'firebase';
-import { AngularFireAuth } from '@angular/fire/auth'; 
 /**
  * Generated class for the PasswordRecoveryPage page.
  *
@@ -21,8 +19,7 @@ export class PasswordRecoveryPage {
   constructor(public navCtrl: NavController, 
 			  public navParams: NavParams,
 			  public menuCtrl: MenuController,
-			  private alertCtrl: AlertController,
-        private afAuth:AngularFireAuth ) {
+			  private alertCtrl: AlertController) {
   }
   ionViewDidEnter(){
         this.menuCtrl.swipeEnable(false,"sidemenu");
@@ -44,7 +41,7 @@ export class PasswordRecoveryPage {
         alert.present();
       }
       else{
-        const reset = this.afAuth.auth.sendPasswordResetEmail(this.email)
+        firebase.auth().sendPasswordResetEmail(this.email)
         .then(() => {
 			console.log("email sent");
 			const alert = this.alertCtrl.create({

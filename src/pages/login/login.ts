@@ -3,17 +3,11 @@ import { IonicPage, NavController, NavParams, MenuController, AlertController} f
 import { PasswordRecoveryPage } from '../../pages/password-recovery/password-recovery';
 import { CreateAccountPage } from '../../pages/create-account/create-account';
 import { HomePage } from '../../pages/home/home';
-import { Facebook } from '@ionic-native/facebook';
 //import { Instagram } from '@ionic-native/instagram';
 import { User } from '../../models/user';
-//import { AngularFire } from '@angular/fire'; 
-import { AngularFireAuth } from '@angular/fire/auth'; 
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database'; 
 import { Policies } from '../../policies/policies';
 import firebase from 'firebase';
-import { GooglePlus } from '@ionic-native/google-plus';
-import { FIREBASE_CONFIG } from '../../app/app.firebase.config';
-import { Observable } from 'rxjs/Observable';
 
 /**
  * Generated class for the LoginPage page.
@@ -34,19 +28,14 @@ export class LoginPage {
   email: string;
   password: string;
   userData: AngularFireList<User>;
-  g_user: Observable<firebase.User>;
   constructor(public navCtrl: NavController, 
 			  private alertCtrl: AlertController,
 			  public navParams: NavParams,
 			  public menuCtrl: MenuController,
 			  public policy: Policies,
-			  public gplus: GooglePlus,
-			  private db: AngularFireDatabase,
+			  private db: AngularFireDatabase
 			  //private instagram: Instagram,
-			  private fb: Facebook,
-			  private afAuth: AngularFireAuth
 			  ) {
-			this.g_user = this.afAuth.authState;
 			firebase.auth().onAuthStateChanged( user => {
 						if (user){
 						  this.userProfile = user;
@@ -77,10 +66,9 @@ export class LoginPage {
 						handler: () => {
 								try {
 								  const provider = new firebase.auth.FacebookAuthProvider();
-								  const credential = firebase.auth()
+								  firebase.auth()
 									.signInWithPopup(provider)
 									.then(data => {
-										console.log(this.fb.getAccessToken.toString);
 										if(data.additionalUserInfo.isNewUser){
 											this.userData.push({
 												fullname: data.user.displayName,
@@ -96,7 +84,7 @@ export class LoginPage {
 											alert.present();
 											this.navCtrl.setRoot(HomePage);
 									}).catch(error => {
-										console.log('error!');
+										console.log(error);
 										const alert = this.alertCtrl.create({
 											title: 'Info',
 											subTitle: 'Email already exists!',
@@ -136,9 +124,16 @@ export class LoginPage {
 						handler: () => {
 								try {
 								  const provider = new firebase.auth.TwitterAuthProvider();
-								  const credential = this.afAuth.auth
+								  firebase.auth()
 									.signInWithPopup(provider)
 									.then(data => {
+										if(data.additionalUserInfo.isNewUser){
+											this.userData.push({
+												fullname: data.user.displayName,
+												email: data.user.email,
+												u_location: ""
+											});
+										}
 									  const alert = this.alertCtrl.create({
 										  title: 'Info',
 										  subTitle: 'Sign In Successful!',
@@ -202,7 +197,7 @@ export class LoginPage {
 						handler: () => {
 								try {
 								  const provider = new firebase.auth.GoogleAuthProvider();
-								  const credential = this.afAuth.auth
+								  firebase.auth()
 									.signInWithPopup(provider)
 									.then(data => {
 												if(data.additionalUserInfo.isNewUser){
@@ -267,31 +262,31 @@ export class LoginPage {
 				});
 				alert.present();
 		  }
-		  else{ 
-			const result = this.afAuth.auth.signInWithEmailAndPassword(this.email, this.password)
-			.then(auth => {
-				this.afAuth.auth.onAuthStateChanged(user => {
-				    if (user && user.emailVerified) {
-					  const alert = this.alertCtrl.create({
-						  title: 'Info',
-						  subTitle: 'Log in Successful!',
-						  buttons: ['OK']
+		  else{
+				firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+				.then(auth => {
+					firebase.auth().onAuthStateChanged(user => {
+							if (user && user.emailVerified) {
+							const alert = this.alertCtrl.create({
+								title: 'Info',
+								subTitle: 'Log in Successful!',
+								buttons: ['OK']
+							});
+							alert.present();
+							this.navCtrl.setRoot(HomePage);
+							user.getIdToken(true);
+							}
+							else if(!user.emailVerified){
+								const alert = this.alertCtrl.create({
+								title: 'Info',
+								subTitle: 'Log in Failed! Email not verified',
+								buttons: ['OK']
+							});
+							alert.present();
+							}
 						});
-						alert.present();
-						this.navCtrl.setRoot(HomePage);
-						user.getIdToken(true);
-				    }
-				    else if(!user.emailVerified){
-				    	const alert = this.alertCtrl.create({
-						  title: 'Info',
-						  subTitle: 'Log in Failed! Email not verified',
-						  buttons: ['OK']
-						});
-						alert.present();
-				    }
-				  });
-				
-			})
+					
+				})
 		    .catch(err => {
 				const alert = this.alertCtrl.create({
 				  title: 'Info',

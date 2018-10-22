@@ -4,7 +4,6 @@ import { LoginPage } from '../../pages/login/login';
 import { AngularFireAuth } from '@angular/fire/auth'; 
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database'; 
 import { User } from '../../models/user';
-import { FIREBASE_CONFIG } from '../../app/app.firebase.config';
 import * as firebase from 'firebase';
 
 
@@ -30,8 +29,7 @@ export class EditAccountPage {
 			  public navParams: NavParams,
 			  public menuCtrl: MenuController,
 			  private db: AngularFireDatabase,
-			  public alertCtrl: AlertController,
-			  private afAuth: AngularFireAuth) {
+			  public alertCtrl: AlertController) {
 			this.userData = this.db.list('user');
   }
   ionViewDidLoad() {
@@ -84,7 +82,6 @@ export class EditAccountPage {
 				user.reload;
 					var query = firebase.database().ref('user').orderByChild('email').equalTo(user.email);
 					query.on('child_added', function(snap) {
-					  var person = snap.val();
 					  this.userData.set({
 						fullname: userInfo.fullname,
 						email: userInfo.email,
