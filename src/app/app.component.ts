@@ -50,7 +50,6 @@ export class MyApp {
     });
 	const unsubscribe = firebase.auth().onAuthStateChanged(user => {
 	  if (!user) {
-			user.reload;
 			unsubscribe();
 	  } else {	
 			/*var query = firebase.database().ref('user').orderByChild('email').equalTo(user.email);
@@ -61,7 +60,6 @@ export class MyApp {
 				var pic = document.getElementById('avatar-box');
 				pic.setAttribute("style","background-image: url("+ user.photoURL +") !important;");
 			});*/
-			user.reload;
 			document.getElementById('account-name').innerHTML = user.displayName;
 			var pic = document.getElementById('avatar-box');
 			pic.setAttribute("style","background-image: url("+ user.photoURL +") !important;");

@@ -37,18 +37,19 @@ export class EditAccountPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditAccountPage');
 	const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+		console.log(user);
 		var ion_name = document.getElementById('fname').children;
 		ion_name[0].setAttribute('value',user.displayName);
 		var ion_email = document.getElementById('email').children;
 		ion_email[0].setAttribute('value',user.email);
 		var ion_location = document.getElementById('fname').children;
+		var pic = document.getElementById('avatar-box');
+			pic.setAttribute("style","background-image: url("+ user.photoURL +") !important;");
 	  if (!user) {
 			this.navCtrl.setRoot(LoginPage);
 			unsubscribe();
 	  } else {	
 			var query = firebase.database().ref('user').orderByChild('email').equalTo(user.email);
-			var pic = document.getElementById('avatar-box');
-			pic.setAttribute("style","background-image: url("+ user.photoURL +") !important;");
 			query.on('child_added', function(snap) {
 				var person = snap.val();
 				ion_location[0].setAttribute('value',person.u_location);

@@ -80,6 +80,7 @@ export class LoginPage {
 								  const credential = firebase.auth()
 									.signInWithPopup(provider)
 									.then(data => {
+										console.log(this.fb.getAccessToken.toString);
 										if(data.additionalUserInfo.isNewUser){
 											this.userData.push({
 												fullname: data.user.displayName,
@@ -94,9 +95,14 @@ export class LoginPage {
 											});
 											alert.present();
 											this.navCtrl.setRoot(HomePage);
-									}).catch(function(error) {
+									}).catch(error => {
 										console.log('error!');
-										// ...
+										const alert = this.alertCtrl.create({
+											title: 'Info',
+											subTitle: 'Email already exists!',
+											buttons: ['OK']
+										});
+										alert.present();
 									});
 								} 
 								catch (err) {
@@ -213,10 +219,24 @@ export class LoginPage {
 										});
 										alert.present();
 									  this.navCtrl.setRoot(HomePage);
+									}).catch(error => {
+										console.log('error!');
+										const alert = this.alertCtrl.create({
+											title: 'Info',
+											subTitle: 'Email already exists!',
+											buttons: ['OK']
+										});
+										alert.present();
 									});
 								} 
 								catch (err) {
-								  console.log(err);
+									console.log(err);
+									const alert = this.alertCtrl.create({
+										title: 'Info',
+										subTitle: 'Email already exists!',
+										buttons: ['OK']
+									});
+									alert.present();
 								} 
 						}
 					}
@@ -259,7 +279,6 @@ export class LoginPage {
 						});
 						alert.present();
 						this.navCtrl.setRoot(HomePage);
-						user.reload;
 						user.getIdToken(true);
 				    }
 				    else if(!user.emailVerified){
