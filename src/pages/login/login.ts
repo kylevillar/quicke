@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController, AlertController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, AlertController, Platform } from 'ionic-angular';
 import { PasswordRecoveryPage } from '../../pages/password-recovery/password-recovery';
 import { CreateAccountPage } from '../../pages/create-account/create-account';
 import { HomePage } from '../../pages/home/home';
@@ -8,7 +8,7 @@ import { User } from '../../models/user';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database'; 
 import firebase from 'firebase';
 import { GooglePlus } from '@ionic-native/google-plus';
-import { SelectMultipleControlValueAccessor } from '@angular/forms';
+//import { Facebook } from '@ionic-native/facebook';
 
 /**
  * Generated class for the LoginPage page.
@@ -33,7 +33,9 @@ export class LoginPage {
 			  public navParams: NavParams,
 			  public menuCtrl: MenuController,
 				private db: AngularFireDatabase,
-				private gp: GooglePlus
+				private gp: GooglePlus,
+				//private fb: Facebook,
+				private platform: Platform
 			  //private instagram: Instagram,
 			  ) {
 			firebase.auth().onAuthStateChanged( user => {
@@ -92,6 +94,17 @@ export class LoginPage {
 										});
 										alert.present();
 									});
+									/*if (this.platform.is('cordova')) {
+										return this.fb.login(['email', 'public_profile']).then(res => {
+											const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
+											return firebase.auth().signInWithCredential(facebookCredential);
+										})
+									}
+									else {
+										return firebase.auth()
+											.signInWithPopup(new firebase.auth.FacebookAuthProvider())
+											.then(res => console.log(res));
+									}*/
 								} 
 								catch (err) {
 									console.log(err);
@@ -196,41 +209,36 @@ export class LoginPage {
 						text:'Accept',
 						handler: () => {
 								try {
-									const provider = new firebase.auth.GoogleAuthProvider();
 									this.gp.login({
 										'webClientId': '1078026289343-hiqr2p7ojlcmtg8upnm1ppdo90i59cg4.apps.googleusercontent.com',
 										'offline': true
 									}).then( res => {
-										firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
-											.then( success => {
-												console.log("Firebase success: " + JSON.stringify(success));
-												if(success){
-													this.userData.push({
-														fullname: success.displayName,
-														email: success.email,
-														u_location: ""
-													});
-											}
-											const alert = this.alertCtrl.create({
-												title: 'Info',
-												subTitle: 'Sign In Successful!',
-												buttons: ['OK']
-											});
-											alert.present();
-											this.navCtrl.setRoot(HomePage);
-											})
-											.catch( error => {
-												console.log("Firebase failure: " + JSON.stringify(error));
-												const alert = this.alertCtrl.create({
-													title: 'Info',
-													subTitle: 'Email already exists!',
-													buttons: ['OK']
-												});
-												alert.present();
-											})
-										}).catch(err => console.error("Error: ", err));
-								}
-									/*firebase.auth()
+													const googleCredential = firebase.auth.GoogleAuthProvider
+															.credential(res.idToken);
+													firebase.auth().signInWithCredential(googleCredential)
+												.then( response => {
+														console.log("Firebase success: " + JSON.stringify(response));
+														
+														if(response){
+																this.userData.push({
+																	fullname: response.displayName,
+																	email: response.email,
+																	u_location: ""
+																});
+														}
+														const alert = this.alertCtrl.create({
+															title: 'Info',
+															subTitle: 'Sign In Successful!',
+															buttons: ['OK']
+														});
+														alert.present();
+														this.navCtrl.setRoot(HomePage);
+														});
+									}, err => {
+											console.error("Error: ", err)
+									});
+									/*const provider = new firebase.auth.GoogleAuthProvider();
+									firebase.auth()
 									.signInWithPopup(provider)
 									.then(data => {
 												if(data.additionalUserInfo.isNewUser){
@@ -256,6 +264,7 @@ export class LoginPage {
 										});
 										alert.present();
 									});*/
+								} 
 								catch (err) {
 									console.log(err);
 									const alert = this.alertCtrl.create({
