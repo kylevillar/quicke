@@ -6,8 +6,9 @@ import { HomePage } from '../../pages/home/home';
 //import { Instagram } from '@ionic-native/instagram';
 import { User } from '../../models/user';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database'; 
-import { Policies } from '../../policies/policies';
 import firebase from 'firebase';
+import { GooglePlus } from '@ionic-native/google-plus';
+import { SelectMultipleControlValueAccessor } from '@angular/forms';
 
 /**
  * Generated class for the LoginPage page.
@@ -20,7 +21,6 @@ import firebase from 'firebase';
 @Component({
   selector: 'page-login',
   templateUrl: 'login.html',
-  providers: [Policies]
 })
 export class LoginPage {
   user = {} as User;
@@ -32,8 +32,8 @@ export class LoginPage {
 			  private alertCtrl: AlertController,
 			  public navParams: NavParams,
 			  public menuCtrl: MenuController,
-			  public policy: Policies,
-			  private db: AngularFireDatabase
+				private db: AngularFireDatabase,
+				private gp: GooglePlus
 			  //private instagram: Instagram,
 			  ) {
 			firebase.auth().onAuthStateChanged( user => {
@@ -42,7 +42,7 @@ export class LoginPage {
 						} else { 
 						  this.userProfile = null; 
 						}
-					  });
+						});
 			this.userData = this.db.list('user');
 			  }
   async signUpWithFacebook(): Promise<void>{
@@ -196,8 +196,41 @@ export class LoginPage {
 						text:'Accept',
 						handler: () => {
 								try {
-								  const provider = new firebase.auth.GoogleAuthProvider();
-								  firebase.auth()
+									const provider = new firebase.auth.GoogleAuthProvider();
+									this.gp.login({
+										'webClientId': '1078026289343-hiqr2p7ojlcmtg8upnm1ppdo90i59cg4.apps.googleusercontent.com',
+										'offline': true
+									}).then( res => {
+										firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
+											.then( success => {
+												console.log("Firebase success: " + JSON.stringify(success));
+												if(success){
+													this.userData.push({
+														fullname: success.displayName,
+														email: success.email,
+														u_location: ""
+													});
+											}
+											const alert = this.alertCtrl.create({
+												title: 'Info',
+												subTitle: 'Sign In Successful!',
+												buttons: ['OK']
+											});
+											alert.present();
+											this.navCtrl.setRoot(HomePage);
+											})
+											.catch( error => {
+												console.log("Firebase failure: " + JSON.stringify(error));
+												const alert = this.alertCtrl.create({
+													title: 'Info',
+													subTitle: 'Email already exists!',
+													buttons: ['OK']
+												});
+												alert.present();
+											})
+										}).catch(err => console.error("Error: ", err));
+								}
+									/*firebase.auth()
 									.signInWithPopup(provider)
 									.then(data => {
 												if(data.additionalUserInfo.isNewUser){
@@ -222,8 +255,7 @@ export class LoginPage {
 											buttons: ['OK']
 										});
 										alert.present();
-									});
-								} 
+									});*/
 								catch (err) {
 									console.log(err);
 									const alert = this.alertCtrl.create({
