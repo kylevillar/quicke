@@ -5,6 +5,7 @@ import { CreateAccountPage } from '../../pages/create-account/create-account';
 import { HomePage } from '../../pages/home/home';
 //import { Instagram } from '@ionic-native/instagram';
 import { User } from '../../models/user';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/database'; 
 import firebase from 'firebase';
 import { GooglePlus } from '@ionic-native/google-plus';
@@ -27,15 +28,16 @@ export class LoginPage {
   userProfile: any = null;
   email: string;
   password: string;
-  userData: AngularFireList<User>;
+	userData: AngularFireList<User>;
+	usersRef: any = firebase.database().ref('users');
   constructor(public navCtrl: NavController, 
 			  private alertCtrl: AlertController,
 			  public navParams: NavParams,
 			  public menuCtrl: MenuController,
 				private db: AngularFireDatabase,
 				private gp: GooglePlus,
+				private afAuth: AngularFireAuth,
 				//private fb: Facebook,
-				private platform: Platform
 			  //private instagram: Instagram,
 			  ) {
 			firebase.auth().onAuthStateChanged( user => {
@@ -190,8 +192,8 @@ export class LoginPage {
 				});
 		alert.present();
   }
-  async signUpWithGMail(): Promise<void>{
-	  const alert = this.alertCtrl.create({
+  signUpWithGMail(){
+		const alert = this.alertCtrl.create({
 				  title: 'GMail Privacy Policy',
 				  subTitle: 'Please read and agree with the rules and regulations.',
 				  message: "<h3 class='par-head'>Heading 1</h3>" +
@@ -208,35 +210,8 @@ export class LoginPage {
 					{
 						text:'Accept',
 						handler: () => {
-								try {
-									this.gp.login({
-										'webClientId': '1078026289343-hiqr2p7ojlcmtg8upnm1ppdo90i59cg4.apps.googleusercontent.com',
-										'offline': true
-									}).then( res => {
-													const googleCredential = firebase.auth.GoogleAuthProvider
-															.credential(res.idToken);
-													firebase.auth().signInWithCredential(googleCredential)
-												.then( response => {
-														console.log("Firebase success: " + JSON.stringify(response));
-														
-														if(response){
-																this.userData.push({
-																	fullname: response.displayName,
-																	email: response.email,
-																	u_location: ""
-																});
-														}
-														const alert = this.alertCtrl.create({
-															title: 'Info',
-															subTitle: 'Sign In Successful!',
-															buttons: ['OK']
-														});
-														alert.present();
-														this.navCtrl.setRoot(HomePage);
-														});
-									}, err => {
-											console.error("Error: ", err)
-									});
+								try {	
+									this.nativeGoogleLogin();
 									/*const provider = new firebase.auth.GoogleAuthProvider();
 									firebase.auth()
 									.signInWithPopup(provider)
@@ -279,7 +254,50 @@ export class LoginPage {
 				]
 		});
 		alert.present();
-  }
+	}
+	
+	async nativeGoogleLogin(): Promise<void> {
+		try{
+			const g_user = await this.gp.login({
+				'webClientId': '1078026289343-hiqr2p7ojlcmtg8upnm1ppdo90i59cg4.apps.googleusercontent.com',
+				'offline': true,
+				'scopes': 'profile email'
+			})
+			const s_in = await this.afAuth.auth.signInWithCredential(
+				firebase.auth.GoogleAuthProvider.credential(g_user.idToken)
+			).then(data => {
+					console.log(data);
+					console.log(this.usersRef);
+					if(data.displayName){
+						this.userData.push({
+							fullname: data.displayName,
+							email: data.email,
+							u_location: ""
+						});
+					}
+					const alert = this.alertCtrl.create({
+						title: 'Info',
+						subTitle: 'Sign In Successful!',
+						buttons: ['OK']
+					});
+					alert.present();
+					this.navCtrl.setRoot(HomePage);
+			})
+			.catch(err => {
+				console.log(err);
+				const alert = this.alertCtrl.create({
+					title: 'Info',
+					subTitle: 'Email already exists!',
+					buttons: ['OK']
+				});
+				alert.present();
+			});
+			console.log(s_in);
+		}
+		catch(err){
+			console.log(err);
+		}
+	}
   
   ionViewDidEnter(){
         this.menuCtrl.swipeEnable(false,"sidemenu");
