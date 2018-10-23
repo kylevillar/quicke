@@ -95,7 +95,11 @@
         <variable name="WEB_APPLICATION_CLIENT_ID" value="1078026289343-hiqr2p7ojlcmtg8upnm1ppdo90i59cg4.apps.googleusercontent.com" />
         <variable name="PLAY_SERVICES_VERSION" value="15.0.1" />
     </plugin>
-    <engine name="android" spec="7.1.1" />
+    <plugin name="cordova-plugin-facebook4" spec="3.1.0">
+        <variable name="APP_ID" value="2064374700294873" />
+        <variable name="APP_NAME" value="QuickE" />
+    </plugin>
     <engine name="browser" spec="5.0.4" />
     <engine name="ios" spec="4.5.5" />
+    <engine name="android" spec="7.1.1" />
 </widget>

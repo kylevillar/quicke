@@ -16,7 +16,7 @@ import { CreateNewOrderPageModule } from '../pages/create-new-order/create-new-o
 import { PreviewPageModule } from '../pages/preview/preview.module';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { Facebook } from '@ionic-native/facebook';
+//import { Facebook } from '@ionic-native/facebook';
 import { Instagram } from '@ionic-native/instagram';
 import { GooglePlus } from '@ionic-native/google-plus';
 import { User } from '../models/user';
@@ -64,7 +64,7 @@ import { ChatServiceProvider } from '../providers/chat-service/chat-service';
   ],
   providers: [
     StatusBar,
-	Facebook,
+	//Facebook,
 	Instagram,
 	AngularFireAuth,
 	GooglePlus,

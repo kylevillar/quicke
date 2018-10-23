@@ -29,7 +29,7 @@ export class LoginPage {
   email: string;
   password: string;
 	userData: AngularFireList<User>;
-	usersRef: any = firebase.database().ref('users');
+	//usersRef: any = firebase.database().ref;
   constructor(public navCtrl: NavController, 
 			  private alertCtrl: AlertController,
 			  public navParams: NavParams,
@@ -69,7 +69,7 @@ export class LoginPage {
 						text:'Accept',
 						handler: () => {
 								try {
-								  const provider = new firebase.auth.FacebookAuthProvider();
+								  /*const provider = new firebase.auth.FacebookAuthProvider();
 								  firebase.auth()
 									.signInWithPopup(provider)
 									.then(data => {
@@ -95,18 +95,8 @@ export class LoginPage {
 											buttons: ['OK']
 										});
 										alert.present();
-									});
-									/*if (this.platform.is('cordova')) {
-										return this.fb.login(['email', 'public_profile']).then(res => {
-											const facebookCredential = firebase.auth.FacebookAuthProvider.credential(res.authResponse.accessToken);
-											return firebase.auth().signInWithCredential(facebookCredential);
-										})
-									}
-									else {
-										return firebase.auth()
-											.signInWithPopup(new firebase.auth.FacebookAuthProvider())
-											.then(res => console.log(res));
-									}*/
+									});*/
+									this.nativeFBLogin();
 								} 
 								catch (err) {
 									console.log(err);
@@ -266,8 +256,8 @@ export class LoginPage {
 			const s_in = await this.afAuth.auth.signInWithCredential(
 				firebase.auth.GoogleAuthProvider.credential(g_user.idToken)
 			).then(data => {
-					console.log(data);
-					console.log(this.usersRef);
+					//console.log(data);
+					//console.log(this.usersRef);
 					if(data.displayName){
 						this.userData.push({
 							fullname: data.displayName,
@@ -292,12 +282,30 @@ export class LoginPage {
 				});
 				alert.present();
 			});
-			console.log(s_in);
 		}
 		catch(err){
 			console.log(err);
 		}
 	}
+
+	async nativeFBLogin(): Promise<void> {
+		try{
+			/*return this.fb.login(['email','password'])
+				.then( response => {
+					const facebookCredential = firebase.auth.FacebookAuthProvider
+						.credential(response.authResponse.accessToken);
+					firebase.auth().signInWithCredential(facebookCredential)
+						.then( success => { 
+							console.log("Firebase success: " + JSON.stringify(success)); 
+						});
+
+				}).catch((error) => { console.log(error) });*/
+		}
+		catch(err){
+			console.log(err);
+		}
+	}
+
   
   ionViewDidEnter(){
         this.menuCtrl.swipeEnable(false,"sidemenu");
